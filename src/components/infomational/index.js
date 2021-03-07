@@ -3,6 +3,7 @@ import { pluginFactory } from "../../utils/plugins";
 import Avatar from "./avatar";
 import Badge from "./badge";
 import BreadCrumbs from "./breadCrumbs";
+import Button from "./button";
 import Link from "./link";
 
 export default pluginFactory({
@@ -10,6 +11,7 @@ export default pluginFactory({
         Avatar,
         Badge,
         BreadCrumbs,
+        Button,
         Link,
     ]
 })
