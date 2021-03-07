@@ -28,7 +28,7 @@ import "./Dropdown.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 export default {
-	controlName: "l-dropdown",
+	controlName: "l-dropdown-wrapper",
 	name: "Dropdown",
 	data: function () {
 		return {
