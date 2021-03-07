@@ -1,0 +1,25 @@
+{
+  "name": "lionel-ui-toolkits",
+  "version": "1.0.0",
+  "description": "Atomic ui components written in vue.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enw860/Vue-UI-Toolkits.git"
+  },
+  "keywords": [
+    "vue",
+    "react",
+    "toolkits",
+    "UI"
+  ],
+  "author": "Lionel Wu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/enw860/Vue-UI-Toolkits/issues"
+  },
+  "homepage": "https://github.com/enw860/Vue-UI-Toolkits#readme"
+}
