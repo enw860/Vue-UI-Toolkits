@@ -4,13 +4,16 @@
  * @returns {object} plugin install object
  */
 export const pluginFactory = ({ components, plugins } = {}) => {
-    return function (Vue) {
-        if (!this.installed) {
-            this.installed = true
-            registerComponents(Vue, components)
-            registerPlugins(Vue, plugins)
+    const install = function (Vue) {
+        if (!install.installed) {
+            install.installed = true;
+            registerComponents(Vue, components);
+            registerPlugins(Vue, plugins);
         }
     }
+
+    install.installed = false;
+    return install;
 }
 
 /**
@@ -22,7 +25,7 @@ export const registerComponents = (Vue, components = []) => {
     components.forEach(component => {
         const name = component.controlName || component.name;
         if (Vue && name && component) {
-            Vue.component(Vue, name, component);
+            Vue.component(name, component);
         } else {
             console.error(`Somthing wrong while registing the component ${component}`);
         }
