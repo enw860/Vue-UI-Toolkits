@@ -4,6 +4,7 @@ import Avatar from "./avatar";
 import Badge from "./badge";
 import BreadCrumbs from "./breadCrumbs";
 import Button from "./button";
+import Clock from "./clock";
 import DisplayText from "./displayText";
 import HTMLTextLoader from "./htmlTextLoader";
 import Link from "./link";
@@ -15,6 +16,7 @@ export default pluginFactory({
         Badge,
         BreadCrumbs,
         Button,
+        Clock,
         DisplayText,
         HTMLTextLoader,
         Link,
