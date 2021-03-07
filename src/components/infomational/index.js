@@ -5,6 +5,7 @@ import Badge from "./badge";
 import BreadCrumbs from "./breadCrumbs";
 import Button from "./button";
 import DisplayText from "./displayText";
+import HTMLTextLoader from "./htmlTextLoader";
 import Link from "./link";
 
 export default pluginFactory({
@@ -14,6 +15,7 @@ export default pluginFactory({
         BreadCrumbs,
         Button,
         DisplayText,
+        HTMLTextLoader,
         Link,
     ]
 })
