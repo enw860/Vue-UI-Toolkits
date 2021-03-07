@@ -7,6 +7,7 @@ import Button from "./button";
 import DisplayText from "./displayText";
 import HTMLTextLoader from "./htmlTextLoader";
 import Link from "./link";
+import Table from "./table";
 
 export default pluginFactory({
     plugins: [
@@ -17,5 +18,6 @@ export default pluginFactory({
         DisplayText,
         HTMLTextLoader,
         Link,
+        Table,
     ]
 })
