@@ -25,12 +25,20 @@
 
 <script>
 import "./Inputs.less";
+import { normalizeInput } from "../../../utils/utilities";
 
 export default {
 	name: "l-input-file",
 	data: function () {
 		return {
 			files: [],
+
+			INPUTSIZE: {
+				small: "size-small",
+				default: "size-normal",
+				large: "size-large",
+				xlarge: "size-xlarge",
+			},
 		};
 	},
 	props: {
@@ -48,6 +56,13 @@ export default {
 		},
 	},
 	computed: {
+		inputSize: function () {
+			return this.size
+				? normalizeInput(this.INPUTSIZE, this.size)
+				: this.$parent.labelSize
+				? ""
+				: normalizeInput(this.INPUTSIZE, "default");
+		},
 		describeBy: function () {
 			return this.$parent.labelID || "";
 		},
