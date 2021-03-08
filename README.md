@@ -1,5 +1,9 @@
 # sharkquila_ui_toolkits
 
+![NPM License](https://img.shields.io/npm/l/sharkquila_ui_toolkits)
+![npm](https://img.shields.io/npm/v/sharkquila_ui_toolkits)
+![npm bundle size](https://img.shields.io/bundlephobia/min/sharkquila_ui_toolkits)
+	
 The toolkits were designed for minimizing the amount of effot that spend on writting basic UI components while building a website. Those high quality toolkits will handle not only the UI details but also provide a standardlize UX experience across all of your pages.
 
 ## Install
