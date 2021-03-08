@@ -14,7 +14,7 @@
 import "./MaskLayer.less";
 
 export default {
-	controlName: "l-mask-layer",
+	controlName: "l-masklayer",
 	name: "MaskLayer",
 	props: {
 		show: {
