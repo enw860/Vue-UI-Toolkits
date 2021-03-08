@@ -1,7 +1,5 @@
 # sharkquila_ui_toolkits
 
-[![version][0]][1] [![downloads][2]][3]
-
 The toolkits were designed for minimizing the amount of effot that spend on writting basic UI components while building a website. Those high quality toolkits will handle not only the UI details but also provide a standardlize UX experience across all of your pages.
 
 ## Install
