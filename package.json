@@ -1,20 +1,18 @@
 {
   "name": "lionel-ui-toolkits",
-  "version": "1.0.0",
-  "description": "Atomic ui components written in vue.",
+  "version": "1.1.0",
+  "description": "Automic UI components written in vue for fast startup.",
   "main": "src/components/index.js",
-  "scripts": {
-    "build": "echo Building",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enw860/Vue-UI-Toolkits.git"
   },
   "keywords": [
     "vue",
-    "react",
     "toolkits",
+    "ui-toolkits",
+    "controls",
     "UI"
   ],
   "author": "Lionel Wu",
