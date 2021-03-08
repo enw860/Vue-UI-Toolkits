@@ -55,37 +55,55 @@ Please view the [Demo repo]() & [Demo site]() page for more information.
 ### Informational
 
 [l-avatar](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/avatar/Avatar.vue)
+
 [l-badge](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/badge/Badge.vue)
+
 [l-bread-crumbs](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/breadCrumbs/BreadCrumbs.vue)
+
 [l-button](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/button/Button.vue)
+
 [l-clock](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/clock/Clock.vue)
+
 [l-text](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/displayText/DisplayText.vue)
+
 [l-html-text-loader](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/htmlTextLoader/HTMLTextLoader.vue)
+
 [l-link](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/infomational/link/Link.vue)
 
 ### Inputs
 
-[l-input-color]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/ColorInput.vue)
-[l-input-file]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/FileInput.vue)
-[l-input-text]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/InputText.vue)
-[l-input-number]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/Number.vue)
-[l-input-password]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/Password.vue)
-[l-input-textarea]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/TextArea.vue)
-[l-input-single-select]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/SingleSelect.vue)
+[l-input-color](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/ColorInput.vue)
 
-[l-input-group-single]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/RadioGroup.vue)
-[l-input-group-multiple]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/CheckboxGroup.vue)
+[l-input-file](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/FileInput.vue)
 
-[l-toggle]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/toggle/Toggle.vue)
+[l-input-text](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/InputText.vue)
+
+[l-input-number](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/Number.vue)
+
+[l-input-password](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/Password.vue)
+
+[l-input-textarea](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/TextArea.vue)
+
+[l-input-single-select](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/SingleSelect.vue)
+
+[l-input-group-single](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/RadioGroup.vue)
+
+[l-input-group-multiple](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/input/CheckboxGroup.vue)
+
+[l-toggle](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/inputs/toggle/Toggle.vue)
 
 ### Layout
 
-[l-separator]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/layout/separator/Separator.vue)
-[l-slideout]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/layout/slideout/Slideout.vue)
+[l-separator](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/layout/separator/Separator.vue)
+
+[l-slideout](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/layout/slideout/Slideout.vue)
 
 ### Wrapper
 
-[l-dropdown-wrapper]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/dropDown/Dropdown.vue)
-[l-label-wrapper]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/labelWrapper/LabelWrapper.vue)
-[l-popup-wrapper]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/popup/Popup.vue)
-[l-tooltip-wrapper]https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/tooltip/Tooltip.vue)
+[l-dropdown-wrapper](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/dropDown/Dropdown.vue)
+
+[l-label-wrapper](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/labelWrapper/LabelWrapper.vue)
+
+[l-popup-wrapper](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/popup/Popup.vue)
+
+[l-tooltip-wrapper](https://github.com/enw860/sharkquila_ui_toolkits/blob/main/src/components/wrapper/tooltip/Tooltip.vue)
