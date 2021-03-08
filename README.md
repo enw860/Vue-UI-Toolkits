@@ -4,7 +4,7 @@ The toolkits were designed for minimizing the amount of effot that spend on writ
 
 ## Install
 
-Install the package using (npm)[https://www.npmjs.com/package/sharkquila_ui_toolkits]:
+Install the package using [npm](https://www.npmjs.com/package/sharkquila_ui_toolkits):
 
 ```js
 npm install sharkquila_ui_toolkits
