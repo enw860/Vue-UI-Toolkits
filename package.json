@@ -1,12 +1,12 @@
 {
-  "name": "lionel-ui-toolkits",
+  "name": "sharkquila_ui_toolkits",
   "version": "1.1.0",
-  "description": "Automic UI components written in vue for fast startup.",
+  "description": "UI Toolkits written in Vue for fast startup.",
   "main": "src/components/index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/enw860/Vue-UI-Toolkits.git"
+    "url": "git+https://github.com/enw860/sharkquila_ui_toolkits.git"
   },
   "keywords": [
     "vue",
@@ -18,9 +18,9 @@
   "author": "Lionel Wu",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/enw860/Vue-UI-Toolkits/issues"
+    "url": "https://github.com/enw860/sharkquila_ui_toolkits/issues"
   },
-  "homepage": "https://github.com/enw860/Vue-UI-Toolkits#readme",
+  "homepage": "https://github.com/enw860/sharkquila_ui_toolkits#readme",
   "dependencies": {
     "core-js": "^3.9.1",
     "regenerator-runtime": "^0.13.7",
