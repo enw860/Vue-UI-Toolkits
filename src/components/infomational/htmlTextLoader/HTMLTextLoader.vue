@@ -44,7 +44,7 @@ export default {
 				},
 				ATTRIBUTE: {
 					name: "attribute",
-					expression: /([a-zA-Z0-9](-?[a-zA-Z0-9])*)(="[^"]*")\s*/,
+					expression: /([:@]?[a-zA-Z0-9](-?[a-zA-Z0-9])*)(="[^"]*")\s*/,
 				},
 				STATUS: {
 					name: "status",
