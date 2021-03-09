@@ -1,6 +1,10 @@
 <template>
 	<div class="HTMLTextLoaderWrapper">
+		<div class="HTMLTextHeaderWrapper HLayout flow-end">
+			<span>{{ type }}</span>
+		</div>
 		<div ref="loader" class="HTMLTextLoader"></div>
+		<div class="HTMLTextFooterWrapper HLayout flow-end"></div>
 	</div>
 </template>
 
@@ -16,7 +20,7 @@ export default {
 		return {
 			lineCounter: 0,
 			parsedTags: [],
-			subItemsToNewLevelOffset: 3,
+			subItemsToNewLevelOffset: this.wrapOffset,
 			SYNTAX: {
 				COMMENT_TAG: {
 					name: "comment_tag",
@@ -53,6 +57,14 @@ export default {
 		value: {
 			type: String,
 			default: "",
+		},
+		type: {
+			type: String,
+			default: "<HTML>",
+		},
+		wrapOffset: {
+			type: Number,
+			default: 3,
 		},
 	},
 	methods: {
