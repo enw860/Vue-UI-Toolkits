@@ -32,58 +32,72 @@
 import "./Inputs.less";
 import { generateComponentID, normalizeInput } from "../../../utils/utilities";
 
+const LAYOUT = {
+	vertical: "VLayout",
+	horizontal: "HLayout",
+};
+
+const INPUTSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
 export default {
 	controlName: "l-input-group-single",
+
 	name: "RadioGroup",
+
 	data: function () {
 		return {
 			controlID: "",
 			choice: this.value,
-			LAYOUT: {
-				vertical: "VLayout",
-				horizontal: "HLayout",
-			},
-			INPUTSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
 		};
 	},
+
 	props: {
 		size: {
 			type: String,
 			default: "",
+			description: "Size of the text.",
+			options: Object.keys(INPUTSIZE),
 		},
 		options: {
 			type: Array,
 			default: [],
+			description: "Range of options.",
 		},
 		value: {
 			type: String,
 			default: "",
+			description: "Init selected value.",
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disable the control.",
 		},
 		error: {
 			type: String,
 			default: "",
+			description: "Passed in error message. Show error message if any.",
 		},
 		layout: {
 			type: String,
 			default: "Vertical",
+			description: "Layout of the control.",
+			options: Object.keys(LAYOUT),
 		},
 	},
+
 	computed: {
 		inputSize: function () {
 			return this.size
-				? normalizeInput(this.INPUTSIZE, this.size)
+				? normalizeInput(INPUTSIZE, this.size)
 				: this.$parent.labelSize
 				? ""
-				: normalizeInput(this.INPUTSIZE, "default");
+				: normalizeInput(INPUTSIZE, "default");
 		},
 		describeBy: function () {
 			return this.$parent.labelID || "";
@@ -108,9 +122,10 @@ export default {
 			});
 		},
 		layoutClass: function () {
-			return normalizeInput(this.LAYOUT, this.layout);
+			return normalizeInput(LAYOUT, this.layout);
 		},
 	},
+
 	methods: {
 		onchange: function (event) {
 			this.choice = event.target.value;
@@ -133,6 +148,30 @@ export default {
 		},
 		getSelectedValue: function () {
 			return this.choice || "";
+		},
+	},
+
+	expose_events: {
+		"@change": {
+			description: "Binded action, triggered on value being changed.",
+		},
+	},
+
+	expose_methods: {
+		onchange: {
+			description: "Programmatically trigger the on change method.",
+		},
+		setValueByIndex: {
+			description: "<String> | Set the select item by index.",
+		},
+		setValueByValue: {
+			description: "<String> | Set the select item by value.",
+		},
+		getSelectedIndex: {
+			description: "Get the select item index.",
+		},
+		getSelectedValue: {
+			description: "Get the select item value.",
 		},
 	},
 };
