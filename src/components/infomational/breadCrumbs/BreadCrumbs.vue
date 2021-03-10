@@ -16,6 +16,7 @@
 					:color="color"
 					:openInNewTab="false"
 					:disabled="index === steps.length - 1"
+					:size="size"
 					@click="step.click"
 				/>
 				<span v-else>{{ step.name }}</span>
@@ -28,30 +29,31 @@
 import "./BreadCrumbs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const SIZE = {
+	auto: "",
+	xsmall: "size-xsmall",
+	small: "size-small",
+	default: "size-normal",
+	normal: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+	xxlarge: "size-xxlarge",
+	xxxlarge: "size-xxxlarge",
+};
+
 export default {
 	controlName: "l-bread-crumbs",
 
 	name: "BreadCrumbs",
 
 	data: function () {
-		return {
-			SIZE: {
-				auto: "",
-				xsmall: "size-xsmall",
-				small: "size-small",
-				default: "size-normal",
-				normal: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-				xxlarge: "size-xxlarge",
-				xxxlarge: "size-xxxlarge",
-			},
-		};
+		return {};
 	},
 	props: {
 		steps: {
 			type: Array,
 			default: [],
+			description: "[{name: <name>, click: <function>}...]",
 			validator: (steps) =>
 				steps.every((step) => {
 					const validName =
@@ -65,23 +67,28 @@ export default {
 		size: {
 			type: String,
 			default: "auto",
+			description: "Size of the text.",
+			options: Object.keys(SIZE),
 		},
 		fontWeight: {
 			type: Number,
 			default: 400,
+			description: "Font weight of the text.",
 		},
 		color: {
 			type: String,
 			default: "",
+			description: "Font color of the text.",
 		},
 		separator: {
 			type: String,
 			default: "/",
+			description: "Delimiter of bread crumbs.",
 		},
 	},
 	computed: {
 		sizeClass: function () {
-			return normalizeInput(this.SIZE, this.size);
+			return normalizeInput(SIZE, this.size);
 		},
 		isDisabled: function () {
 			return this.$parent.isDisabled || this.disabled;

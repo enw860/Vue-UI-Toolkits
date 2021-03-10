@@ -1,6 +1,10 @@
 <template>
 	<div class="HTMLTextLoaderWrapper">
+		<div class="HTMLTextHeaderWrapper HLayout flow-end">
+			<span>{{ type }}</span>
+		</div>
 		<div ref="loader" class="HTMLTextLoader"></div>
+		<div class="HTMLTextFooterWrapper HLayout flow-end"></div>
 	</div>
 </template>
 
@@ -16,7 +20,7 @@ export default {
 		return {
 			lineCounter: 0,
 			parsedTags: [],
-			EXCEPTIONS: ["img", "input", "br"],
+			subItemsToNewLevelOffset: this.wrapOffset,
 			SYNTAX: {
 				COMMENT_TAG: {
 					name: "comment_tag",
@@ -24,15 +28,15 @@ export default {
 				},
 				CLOSE_TAG: {
 					name: "close_tag",
-					expression: /^(<\/)(\w+)(>)$/,
+					expression: /^(<\/)([\w+-?]+)(>)$/,
 				},
 				SELF_CLOSE_TAG: {
 					name: "self_close_tag",
-					expression: /^(<)(\w+)\s*(.*)(\/>)$/,
+					expression: /^(<)([\w+-?]+)\s*(.*)(\/>)$/,
 				},
 				OPEN_TAG: {
 					name: "open_tag",
-					expression: /^(<)(\w+)\s*(.*)(>)$/,
+					expression: /^(<)([\w+-?]+)\s*(.*)(>)$/,
 				},
 				INLINE_TEXT: {
 					name: "inline_text",
@@ -40,7 +44,7 @@ export default {
 				},
 				ATTRIBUTE: {
 					name: "attribute",
-					expression: /([a-zA-Z0-9](-?[a-zA-Z0-9])*)(="[^"]*")\s*/,
+					expression: /([:@]?[a-zA-Z0-9](-?[a-zA-Z0-9])*)(="[^"]*")\s*/,
 				},
 				STATUS: {
 					name: "status",
@@ -53,6 +57,14 @@ export default {
 		value: {
 			type: String,
 			default: "",
+		},
+		type: {
+			type: String,
+			default: "<HTML>",
+		},
+		wrapOffset: {
+			type: Number,
+			default: 3,
 		},
 	},
 	methods: {
@@ -90,14 +102,6 @@ export default {
 			for (let { name, expression } of matchingOrder) {
 				const result = tag.match(expression);
 				if (result) {
-					// correction types for certain expressions
-					if (
-						name === "open_tag" &&
-						this.EXCEPTIONS.indexOf(result[2]) > -1
-					) {
-						name = "self_close_tag";
-					}
-
 					return {
 						type: name,
 						result,
@@ -204,7 +208,7 @@ export default {
 		},
 		createParseTree: function (root) {
 			if (this.parsedTags.length === 0) {
-				return {};
+				return root || {};
 			}
 
 			let [tag, ...rest] = this.parsedTags;
@@ -272,21 +276,50 @@ export default {
 				const lineSpan = codeSpan.parentNode;
 				const currentLineNumber = this.getCurrentLineNumber();
 
+				const subItems =
+					(parseTree.attributes || []).length +
+					(parseTree.status || []).length;
+
 				// plot open tag
-				this.beautify(codeSpan, parseTree, false);
+				const tailingEleParent = this.beautify(
+					codeSpan,
+					parseTree,
+					false,
+					subItems > this.subItemsToNewLevelOffset,
+					level
+				);
 
 				if (
 					parseTree.type === "open_tag" &&
 					parseTree.children.length === 1 &&
 					parseTree.children[0].type === "inline_text"
 				) {
-					this.beautify(codeSpan, parseTree.children[0], false);
-					this.beautify(codeSpan, parseTree, true);
+					this.beautify(
+						tailingEleParent,
+						parseTree.children[0],
+						false,
+						false,
+						level
+					);
+
+					this.beautify(
+						tailingEleParent,
+						parseTree,
+						true,
+						false,
+						level
+					);
 				} else if (
 					parseTree.type === "open_tag" &&
 					parseTree.children.length === 0
 				) {
-					this.beautify(codeSpan, parseTree, true);
+					this.beautify(
+						tailingEleParent,
+						parseTree,
+						true,
+						false,
+						level
+					);
 				} else {
 					parseTree.children.map((node) => {
 						this.drawLines(node, level + 1);
@@ -297,7 +330,9 @@ export default {
 						this.beautify(
 							this.assignACodeLine(level),
 							parseTree,
-							true
+							true,
+							false,
+							level
 						);
 						this.appendLineCollaspeEvent(
 							lineSpan,
@@ -348,7 +383,13 @@ export default {
 		getCurrentLineNumber: function () {
 			return this.lineCounter;
 		},
-		beautify: function (codeSpan, node, isCloseTag) {
+		beautify: function (
+			codeSpan,
+			node,
+			isCloseTag,
+			subItemsToNewLevel = false,
+			level
+		) {
 			if (!codeSpan) return;
 
 			if (
@@ -364,30 +405,46 @@ export default {
 				);
 
 				(node.attributes || []).map((attr) => {
+					const targetSpan = subItemsToNewLevel
+						? this.assignACodeLine(level + 1)
+						: codeSpan;
+
 					this.createTextElement(
 						"em",
 						attr.name,
 						"HTMLAttribute",
-						codeSpan
+						targetSpan
 					);
 					this.createTextElement(
 						"span",
 						attr.value,
 						"spacer",
-						codeSpan
+						targetSpan
 					);
 				});
 
 				(node.status || []).map((state) => {
+					const targetSpan = subItemsToNewLevel
+						? this.assignACodeLine(level + 1)
+						: codeSpan;
+
 					this.createTextElement(
 						"em",
 						statues.name,
 						"HTMLStatues spacer",
-						codeSpan
+						targetSpan
 					);
 				});
 
-				this.createTextElement("span", ">", null, codeSpan);
+				const closingLine = subItemsToNewLevel
+					? this.assignACodeLine(level)
+					: codeSpan;
+				if (node.type === "self_close_tag") {
+					this.createTextElement("span", "/>", null, closingLine);
+				} else {
+					this.createTextElement("span", ">", null, closingLine);
+				}
+				return closingLine;
 			} else if (node.type === "open_tag" && isCloseTag) {
 				this.createTextElement("span", "</", null, codeSpan);
 				this.createTextElement("em", node.element, "HTMLTag", codeSpan);
@@ -402,6 +459,7 @@ export default {
 					codeSpan
 				);
 			}
+			return codeSpan;
 		},
 		createTextElement: function (eleType, text, eleClass, parent) {
 			let ele = document.createElement(eleType);

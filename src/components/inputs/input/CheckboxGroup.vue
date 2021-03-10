@@ -32,58 +32,73 @@
 import "./Inputs.less";
 import { generateComponentID, normalizeInput } from "../../../utils/utilities";
 
+const LAYOUT = {
+	vertical: "VLayout",
+	horizontal: "HLayout",
+};
+
+const INPUTSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
 export default {
 	controlName: "l-input-group-multiple",
+
 	name: "CheckboxGroup",
+
 	data: function () {
 		return {
 			controlID: "",
 			choice: this.value || [],
-			LAYOUT: {
-				vertical: "VLayout",
-				horizontal: "HLayout",
-			},
-			INPUTSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
 		};
 	},
+
 	props: {
 		size: {
 			type: String,
-			default: "",
+			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(INPUTSIZE),
 		},
 		options: {
 			type: Array,
 			default: [],
+			description: "Range of options.",
 		},
 		value: {
 			type: Array,
 			default: [],
+			description: "List of selected values.",
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disable the control.",
 		},
 		error: {
 			type: String,
 			default: "",
+			description:
+				"Passed in error message. Will show error if any value passed in.",
 		},
 		layout: {
 			type: String,
 			default: "Vertical",
+			description: "Layout of the checkboxes.",
+			options: Object.keys(LAYOUT),
 		},
 	},
+
 	computed: {
 		inputSize: function () {
 			return this.size
-				? normalizeInput(this.INPUTSIZE, this.size)
+				? normalizeInput(INPUTSIZE, this.size)
 				: this.$parent.labelSize
 				? ""
-				: normalizeInput(this.INPUTSIZE, "default");
+				: normalizeInput(INPUTSIZE, "default");
 		},
 		describeBy: function () {
 			return this.$parent.labelID || "";
@@ -108,9 +123,10 @@ export default {
 			});
 		},
 		layoutClass: function () {
-			return normalizeInput(this.LAYOUT, this.layout);
+			return normalizeInput(LAYOUT, this.layout);
 		},
 	},
+
 	methods: {
 		onchange: function (event) {
 			if (this.choice.indexOf(event.target.value) < 0) {
@@ -149,6 +165,30 @@ export default {
 		},
 		getSelectedValues: function () {
 			return this.choice || [];
+		},
+	},
+
+	expose_events: {
+		"@change": {
+			description: "Binded action, triggered on value being changed.",
+		},
+	},
+
+	expose_methods: {
+		onchange: {
+			description: "Programmatically trigger the on change methods.",
+		},
+		setValueByIndexs: {
+			description: "[<index>] | Set the selected items by indexs.",
+		},
+		setValueByValues: {
+			description: "[<string>] | Set the selected items by values",
+		},
+		getSelectedIndexs: {
+			description: "Get the selected indexs.",
+		},
+		getSelectedValues: {
+			description: "Get the selected values.",
 		},
 	},
 };

@@ -6,6 +6,10 @@
 	
 The toolkits were designed for minimizing the amount of effot that spend on writting basic UI components while building a website. Those high quality toolkits will handle not only the UI details but also provide a standardlize UX experience across all of your pages.
 
+Please view the [Demo repo](https://github.com/enw860/sharkquila_ui_demo) page for more information.
+
+Or, see the demo site at [Docker image](https://hub.docker.com/repository/docker/wulionel/sharkquila_ui)
+
 ## Install
 
 Install the package using [npm](https://www.npmjs.com/package/sharkquila_ui_toolkit):
@@ -51,8 +55,6 @@ export default {
 }
 </script>
 ```
-
-Please view the [Demo repo]() & [Demo site]() page for more information.
 
 ## Available controls
 

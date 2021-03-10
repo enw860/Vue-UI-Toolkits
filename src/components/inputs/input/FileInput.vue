@@ -27,41 +27,50 @@
 import "./Inputs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const INPUTSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
 export default {
-	name: "l-input-file",
+	controlName: "l-input-file",
+
+	name: "FileInput",
+
 	data: function () {
 		return {
 			files: [],
-
-			INPUTSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
 		};
 	},
+
 	props: {
 		size: {
 			type: String,
 			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(INPUTSIZE),
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disable the file input button.",
 		},
 		multipleFile: {
 			type: Boolean,
 			default: false,
+			description: "Enable to choose multiple files.",
 		},
 	},
+
 	computed: {
 		inputSize: function () {
 			return this.size
-				? normalizeInput(this.INPUTSIZE, this.size)
+				? normalizeInput(INPUTSIZE, this.size)
 				: this.$parent.labelSize
 				? ""
-				: normalizeInput(this.INPUTSIZE, "default");
+				: normalizeInput(INPUTSIZE, "default");
 		},
 		describeBy: function () {
 			return this.$parent.labelID || "";
@@ -80,6 +89,7 @@ export default {
 				: "Choose file";
 		},
 	},
+
 	methods: {
 		onchange: function (event) {
 			this.files = event.target.files;
@@ -92,6 +102,22 @@ export default {
 		},
 		chooseFiles: function (event) {
 			this.$refs.fileInput.click();
+		},
+	},
+
+	expose_events: {
+		"@change": {
+			description: "Binded action, triggered on value being expanded.",
+		},
+	},
+
+	expose_methods: {
+		getValue: {
+			description: "Get the value of the selected files.",
+		},
+		chooseFiles: {
+			description:
+				"Programmatically trigger the choose file functionalities.",
 		},
 	},
 };
