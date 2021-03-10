@@ -12,44 +12,47 @@
 import "./Badge.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const VPOSITIONS = {
+	top: "v-align-top",
+	center: "v-align-center",
+	bottom: "v-align-bottom",
+};
+
 export default {
 	controlName: "l-badge",
 
 	name: "Badge",
 
 	data: function () {
-		return {
-			VPOSITIONS: {
-				top: "v-align-top",
-				center: "v-align-center",
-				bottom: "v-align-bottom",
-			},
-		};
+		return {};
 	},
 
 	props: {
 		vPosition: {
 			type: String,
 			default: "top",
+			description: "Position where the badge shows.",
+			options: Object.keys(VPOSITIONS),
 		},
 		content: {
 			type: Number,
 			default: 99,
-			isRequred: true,
+			description: "Number of news. Cap in range [-99, 99].",
 		},
 		backgroundColor: {
 			type: String,
-			default: "",
+			default: "#da1e28",
+			description: "Background color of the badge control.",
 		},
 	},
 
 	computed: {
 		vPositionClass: function () {
-			return normalizeInput(this.VPOSITIONS, this.vPosition || "top");
+			return normalizeInput(VPOSITIONS, this.vPosition || "top");
 		},
 		backgroundStyle: function () {
 			return {
-				backgroundColor: this.backgroundColor || "#da1e28",
+				backgroundColor: this.backgroundColor,
 			};
 		},
 		displayingContent: function () {
