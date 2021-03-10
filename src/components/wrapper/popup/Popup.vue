@@ -38,45 +38,58 @@
 import "./Popup.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const SIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
+const DIRECTION = {
+	left: "left",
+	right: "right",
+};
+
 export default {
 	controlName: "l-popup-wrapper",
+
 	name: "Popup",
+
 	timer: null,
+
 	data: function () {
 		return {
 			hide: true,
-			SIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
-			DIRECTION: {
-				left: "left",
-				right: "right",
-			},
 		};
 	},
+
 	props: {
 		value: {
 			type: Array,
 			default: [],
+			description:
+				"Options of the popup menu. [{name, icon, method, disabled}...]",
 		},
 		size: {
 			type: String,
 			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(SIZE),
 		},
 		direction: {
 			type: String,
 			default: "left",
+			description: "Position of the icon in pop up menu.",
+			options: Object.keys(DIRECTION),
 		},
 	},
+
 	computed: {
 		sizeClass: function () {
-			return normalizeInput(this.SIZE, this.size);
+			return normalizeInput(SIZE, this.size);
 		},
 		directionClass: function () {
-			return normalizeInput(this.DIRECTION, this.direction);
+			return normalizeInput(DIRECTION, this.direction);
 		},
 		actions: function () {
 			return this.value.map((action, index) => {
@@ -93,6 +106,7 @@ export default {
 			});
 		},
 	},
+
 	methods: {
 		onkeydown: function (callback, event, index) {
 			const keycode = event.keyCode || event.which;
@@ -128,6 +142,22 @@ export default {
 				this.hide = true;
 				window.removeEventListener("click", this.hidePopup, true);
 			}
+		},
+	},
+
+	expose_methods: {
+		showPopup: {
+			description: "Programmatically showing the popup menu.",
+		},
+		hidePopup: {
+			description: "Programmatically hiding the popup menu.",
+		},
+	},
+
+	expose_slots: {
+		trigger: {
+			description:
+				"Trigger control of the popup menu, could be an icon button.",
 		},
 	},
 };
