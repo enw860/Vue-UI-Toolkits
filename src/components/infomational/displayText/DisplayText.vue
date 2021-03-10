@@ -37,7 +37,7 @@ export default {
 	props: {
 		value: {
 			type: String,
-			default: "auto",
+			default: "Text",
 			description: "Content of display.",
 		},
 		size: {
