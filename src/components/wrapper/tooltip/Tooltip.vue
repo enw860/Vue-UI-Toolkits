@@ -22,66 +22,81 @@
 import "./Tooltip.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
+const INPUTSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
+const MPOS = {
+	top: "m-top",
+	bottom: "m-bottom",
+	left: "m-left",
+	right: "m-right",
+};
+
+const SPOS = {
+	start: "s-start",
+	center: "s-center",
+	end: "s-end",
+};
+
 export default {
 	controlName: "l-tooltip-wrapper",
+
 	name: "Tooltip",
+
 	data: function () {
 		return {
 			isVisible: false,
-			INPUTSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
-			MPOS: {
-				top: "m-top",
-				bottom: "m-bottom",
-				left: "m-left",
-				right: "m-right",
-			},
-			SPOS: {
-				start: "s-start",
-				center: "s-center",
-				end: "s-end",
-			},
 		};
 	},
+
 	props: {
 		value: {
 			type: String,
 			default: "Tooltip",
+			description: "Text show in the tooltip box.",
 		},
 		mPosition: {
 			type: String,
 			default: "top",
+			description: "Vertical position of the tooltip.",
+			options: Object.keys(MPOS),
 		},
 		sPosition: {
 			type: String,
 			default: "start",
+			description: "Horizontal position of the tooltip.",
+			options: Object.keys(SPOS),
 		},
 		size: {
 			type: String,
-			default: "",
+			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(INPUTSIZE),
 		},
 		displayOnHover: {
 			type: Boolean,
 			default: true,
+			description: "Show the tooltip on hover.",
 		},
 	},
+
 	computed: {
 		tooltipSize: function () {
 			return this.size
-				? normalizeInput(this.INPUTSIZE, this.size)
+				? normalizeInput(INPUTSIZE, this.size)
 				: this.$parent.labelSize
 				? ""
-				: normalizeInput(this.INPUTSIZE, "default");
+				: normalizeInput(INPUTSIZE, "default");
 		},
 		mClass: function () {
-			return normalizeInput(this.MPOS, this.mPosition);
+			return normalizeInput(MPOS, this.mPosition);
 		},
 		sClass: function () {
-			return normalizeInput(this.SPOS, this.sPosition);
+			return normalizeInput(SPOS, this.sPosition);
 		},
 		labelID: function () {
 			if (!this.controlID) {
@@ -90,6 +105,7 @@ export default {
 			return this.controlID;
 		},
 	},
+
 	methods: {
 		hoverToggle: function (event) {
 			if (this.displayOnHover) {
@@ -110,6 +126,33 @@ export default {
 		hideTooltip: function (event) {
 			this.isVisible = false;
 			!!this._events.hide && this.$emit("hide", event);
+		},
+	},
+
+	expose_events: {
+		"@show": {
+			description: "Binded action, triggered on tooltip being shown.",
+		},
+		"@hide": {
+			description: "Binded action, triggered on tooltip being hided.",
+		},
+	},
+
+	expose_methods: {
+		toggleTooltip: {
+			description: "Programmatically toggling the tooltip.",
+		},
+		showTooltip: {
+			description: "Programmatically showing the tooltip.",
+		},
+		hideTooltip: {
+			description: "Programmatically hiding the tooltip.",
+		},
+	},
+
+	expose_slots: {
+		content: {
+			description: "Content of the tooltip control.",
 		},
 	},
 };
