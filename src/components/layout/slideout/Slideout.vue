@@ -83,5 +83,11 @@ export default {
 			description: "Programmatically hide the slideout.",
 		},
 	},
+
+	expose_slots: {
+		content: {
+			description: "Body part of the slideout control.",
+		},
+	},
 };
 </script>

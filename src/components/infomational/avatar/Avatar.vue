@@ -154,5 +154,11 @@ export default {
 			description: "Programmatically trigger avatar click event.",
 		},
 	},
+
+	expose_slots: {
+		badge: {
+			description: "Design for embedding badge control.",
+		},
+	},
 };
 </script>
