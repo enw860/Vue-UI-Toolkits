@@ -27,69 +27,84 @@
 import "./Avatar.less";
 import { normalizeInput, randDarkColor } from "../../../utils/utilities";
 
+const SHAPES = {
+	round: "avatar-round",
+	square: "avatar-square",
+};
+
+const SIZES = {
+	default: "avatar-normal",
+	small: "avatar-small",
+	large: "avatar-large",
+	xlarge: "avatar-xlarge",
+};
+
+const TYPES = {
+	text: "text",
+	image: "image",
+	icon: "icon",
+};
+
 export default {
 	controlName: "l-avatar",
 
 	name: "Avatar",
 
 	data: function () {
-		return {
-			SHAPES: {
-				round: "avatar-round",
-				square: "avatar-square",
-			},
-			SIZES: {
-				default: "avatar-normal",
-				small: "avatar-small",
-				large: "avatar-large",
-				xlarge: "avatar-xlarge",
-			},
-			TYPES: {
-				text: "text",
-				image: "image",
-				icon: "icon",
-			},
-		};
+		return {};
 	},
 
 	props: {
 		isActive: {
 			type: Boolean,
 			default: true,
+			description: "Active state of the control.",
 		},
 		shape: {
 			type: String,
 			default: "round",
+			description: "Shape of the control.",
+			options: Object.keys(SHAPES),
 		},
 		type: {
 			type: String,
 			default: "text",
+			description: "Type of the control.",
+			options: Object.keys(TYPES),
 		},
 		avatarSize: {
 			type: String,
 			default: "default",
+			description: "Size of the control.",
+			options: Object.keys(SIZES),
 		},
 		avatarColor: {
 			type: String,
+			description:
+				"Background color of the avatar (for text and icon type). If not unset, an random color will picked for you.",
 		},
 		iconColor: {
 			type: String,
+			default: "#ffffff",
+			description: "Color of the icon.",
 		},
 		content: {
 			type: String,
-			required: true,
+			default: "avatar",
+			description:
+				"Name to the text type; fontawesome class name to the icon type; url for the image type.",
 		},
 	},
 
 	computed: {
 		shapeClass: function () {
-			return normalizeInput(this.SHAPES, this.shape);
+			return normalizeInput(SHAPES, this.shape);
 		},
 		avatarSizeClass: function () {
-			return normalizeInput(this.SIZES, this.avatarSize);
+			return normalizeInput(SIZES, this.avatarSize);
 		},
 		avatarContentType: function () {
-			return normalizeInput(this.TYPES, this.type);
+			return normalizeInput(TYPES, this.type);
 		},
 		avatarContent: function () {
 			if (this.avatarContentType === "text") {
@@ -116,7 +131,7 @@ export default {
 		},
 		avatarIconColor: function () {
 			return {
-				color: this.iconColor || "#ffffff",
+				color: this.iconColor,
 			};
 		},
 	},
@@ -124,6 +139,19 @@ export default {
 	methods: {
 		onclick: function (event) {
 			!!this.clickable && this.isActive && this.$emit("click", event);
+		},
+	},
+
+	expose_events: {
+		"@click": {
+			description:
+				"Binded click action, triggered on avatar being clicked.",
+		},
+	},
+
+	expose_methods: {
+		onclick: {
+			description: "Programmatically trigger avatar click event.",
 		},
 	},
 };
