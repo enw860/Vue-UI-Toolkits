@@ -105,8 +105,7 @@ export default {
 
 	expose_events: {
 		"@click": {
-			description:
-				"Binded click action, triggered on link being clicked.",
+			description: "Binded action, triggered on link being clicked.",
 		},
 	},
 

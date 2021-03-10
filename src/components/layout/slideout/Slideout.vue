@@ -66,12 +66,10 @@ export default {
 
 	expose_events: {
 		"@hide": {
-			description:
-				"Binded click action, triggered on slideout being hided.",
+			description: "Binded action, triggered on slideout being hided.",
 		},
 		"@show": {
-			description:
-				"Binded click action, triggered on slideout being shown.",
+			description: "Binded action, triggered on slideout being shown.",
 		},
 	},
 
