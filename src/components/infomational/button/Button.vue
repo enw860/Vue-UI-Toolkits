@@ -10,7 +10,7 @@
 		@keypress="onkeypress"
 	>
 		<a
-			v-if="!!icon && iconPosition === 'left'"
+			v-if="!!icon && iconPositionNorm === 'left'"
 			class="fa"
 			v-bind:class="icon"
 		></a>
@@ -18,7 +18,7 @@
 		<span v-if="!!value">{{ value }}</span>
 
 		<a
-			v-if="!!icon && iconPosition === 'right'"
+			v-if="!!icon && iconPositionNorm === 'right'"
 			class="fa"
 			v-bind:class="icon"
 		></a>
@@ -29,64 +29,86 @@
 import "./Button.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
+const ICON_POSITION = {
+	left: "left",
+	right: "right",
+};
+
+const SIZE = {
+	small: "size-small",
+	normal: "size-normal",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
+const STYLE = {
+	primary: "btn-primary",
+	success: "btn-success",
+	danger: "btn-danger",
+	info: "btn-info",
+	dark: "btn-dark",
+	white: "btn-white",
+	default: "btn-white",
+	transparent: "btn-transparent",
+};
+
 export default {
 	controlName: "l-button",
 
 	name: "Button",
 
 	data: function () {
-		return {
-			SIZE: {
-				small: "size-small",
-				normal: "size-normal",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
-			STYLE: {
-				primary: "btn-primary",
-				success: "btn-success",
-				danger: "btn-danger",
-				info: "btn-info",
-				dark: "btn-dark",
-				white: "btn-white",
-				default: "btn-white",
-				transparent: "btn-transparent",
-			},
-		};
+		return {};
 	},
+
 	props: {
 		size: {
 			type: String,
 			default: "default",
+			description: "Size of the button control.",
+			options: Object.keys(SIZE),
 		},
 		value: {
 			type: String,
 			default: "Button",
+			description: "Context of button control.",
 		},
 		icon: {
 			type: String,
 			default: "",
+			description: "Fontawsome icon class, e.g fa-apple.",
 		},
 		iconPosition: {
 			type: String,
 			default: "left",
+			options: Object.keys(ICON_POSITION),
+			description: "Position of the icon.",
 		},
 		btnStyle: {
 			type: String,
 			default: "default",
+			description: "Predefined button color styles.",
+
+			options: Object.keys(STYLE),
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Whether the button is disabled or not.",
 		},
 	},
+
 	computed: {
+		iconPositionNorm: function () {
+			return normalizeInput(ICON_POSITION, this.iconPosition);
+		},
+
 		sizeClass: function () {
-			return normalizeInput(this.SIZE, this.size);
+			return normalizeInput(SIZE, this.size);
 		},
 		styleClass: function () {
-			return normalizeInput(this.STYLE, this.btnStyle);
+			return normalizeInput(STYLE, this.btnStyle);
 		},
 		hasIcon: function () {
 			return !!this.icon;
@@ -104,6 +126,7 @@ export default {
 			return this.controlID;
 		},
 	},
+
 	methods: {
 		onclick: function (event) {
 			!this.isDisabled &&
@@ -116,6 +139,19 @@ export default {
 			) {
 				this.onclick(event);
 			}
+		},
+	},
+
+	expose_events: {
+		"@click": {
+			description:
+				"Binded click action, triggered on button being clicked.",
+		},
+	},
+
+	expose_methods: {
+		onclick: {
+			description: "Programmatically trigger button click event.",
 		},
 	},
 };
