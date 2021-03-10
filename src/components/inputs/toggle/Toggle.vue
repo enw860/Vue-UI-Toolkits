@@ -38,70 +38,89 @@
 import "./Toggle.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
+const LABELTYPE = {
+	text: "TEXT",
+	icon: "ICON",
+};
+
+const SIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
+const STYLE = {
+	primary: "toggle-primary",
+	success: "toggle-success",
+	danger: "toggle-danger",
+	info: "toggle-info",
+	default: "toggle-primary",
+};
+
 export default {
 	controlName: "l-toggle",
+
 	name: "Toggle",
+
 	data: function () {
 		return {
 			currentState: this.state,
-			LABELTYPE: {
-				text: "TEXT",
-				icon: "ICON",
-			},
-			SIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
-			STYLE: {
-				primary: "toggle-primary",
-				success: "toggle-success",
-				danger: "toggle-danger",
-				info: "toggle-info",
-				default: "toggle-primary",
-			},
 		};
 	},
+
 	props: {
 		state: {
 			type: Boolean,
 			default: false,
+			description: "Initial state of the toggle control.",
 		},
 		onLabel: {
 			type: String,
 			default: "On",
+			description:
+				"On label, text label when label type is text, otherwise it represent the fontawsome icon class.",
 		},
 		offLabel: {
 			type: String,
 			default: "Off",
+			description:
+				"Off label, text label when label type is text, otherwise it represent the fontawsome icon class.",
 		},
 		labelType: {
 			type: String,
 			default: "text",
+			description: "Type of the toggle label.",
+			options: Object.keys(LABELTYPE),
 		},
 		size: {
 			type: String,
 			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(SIZE),
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disable the toggle.",
 		},
 		toggleStyle: {
 			type: String,
 			default: "default",
+			description: "Style of the toggle control.",
+			options: Object.keys(STYLE),
 		},
 	},
+
 	computed: {
 		sizeClass: function () {
-			return normalizeInput(this.SIZE, this.size);
+			return normalizeInput(SIZE, this.size);
 		},
 		styleClass: function () {
-			return normalizeInput(this.STYLE, this.toggleStyle);
+			return normalizeInput(STYLE, this.toggleStyle);
 		},
 		isTextType: function () {
-			return normalizeInput(this.LABELTYPE, this.labelType) === "TEXT";
+			return normalizeInput(LABELTYPE, this.labelType) === "TEXT";
 		},
 		isDisabled: function () {
 			return this.$parent.isDisabled || this.disabled;
@@ -110,6 +129,7 @@ export default {
 			return this.$parent.labelID || "";
 		},
 	},
+
 	methods: {
 		onToggle: function (event) {
 			this.currentState = !this.currentState;
@@ -127,6 +147,21 @@ export default {
 		},
 		getState: function () {
 			return this.currentState;
+		},
+	},
+
+	expose_events: {
+		"@toggle": {
+			description: "Binded action, triggered on toggle being toggled.",
+		},
+	},
+
+	expose_methods: {
+		onToggle: {
+			description: "Programmatically trigger the toggle control.",
+		},
+		getState: {
+			description: "Get the on or off state.",
 		},
 	},
 };
