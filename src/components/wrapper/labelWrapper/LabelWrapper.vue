@@ -16,52 +16,65 @@
 import "./LabelWrapper.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
+const POSITION = {
+	left: "label-left",
+	top: "label-top",
+};
+
+const LABELSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
 export default {
 	controlName: "l-label-wrapper",
+
 	name: "LabelWrapper",
+
 	data: function () {
 		return {
 			controlID: "",
-			POSITION: {
-				left: "label-left",
-				top: "label-top",
-			},
-			LABELSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
 		};
 	},
+
 	props: {
 		value: {
 			type: String,
 			default: "Default label",
+			description: "Context of the label.",
 		},
 		position: {
 			type: String,
 			default: "top",
+			description: "Position of the label.",
+			options: Object.keys(POSITION),
 		},
 		size: {
 			type: String,
 			default: "default",
+			description: "Size of the label and the inner control size.",
+			options: Object.keys(LABELSIZE),
 		},
 		required: {
 			type: Boolean,
 			default: false,
+			description: "State if the field is required.",
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disabled the label and the inner context.",
 		},
 	},
+
 	computed: {
 		labelPositionClass: function () {
-			return normalizeInput(this.POSITION, this.position);
+			return normalizeInput(POSITION, this.position);
 		},
 		labelSize: function () {
-			return normalizeInput(this.LABELSIZE, this.size);
+			return normalizeInput(LABELSIZE, this.size);
 		},
 		labelContent: function () {
 			return this.required ? "*" + this.value : this.value;
@@ -74,6 +87,12 @@ export default {
 		},
 		isDisabled: function () {
 			return this.$parent.sdisabled || this.disabled;
+		},
+	},
+
+	expose_slots: {
+		labelContent: {
+			description: "Body of the wrapped section.",
 		},
 	},
 };
