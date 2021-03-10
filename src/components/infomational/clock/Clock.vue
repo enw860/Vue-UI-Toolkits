@@ -73,26 +73,32 @@ export default {
 		clockSize: {
 			type: Number,
 			default: 150,
+			description: "Width and height of the clock control",
 		},
 		format: {
 			type: String,
 			default: "hh:mm:ss",
+			description: "Time format of the displayed time string",
 		},
 		fontSize: {
 			type: String,
 			default: "0.7em",
+			description: "Font size of the time string",
 		},
 		timezoneOffset: {
 			type: Number,
 			default: 0,
+			description: "Time zone offset in hours",
 		},
 		showTimeString: {
 			type: Boolean,
 			default: false,
+			description: "Display time string or not.",
 		},
 		showDateString: {
 			type: Boolean,
 			default: false,
+			description: "Display date string or not",
 		},
 	},
 	computed: {
