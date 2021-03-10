@@ -21,41 +21,50 @@
 import "./Inputs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const INPUTSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
 export default {
 	controlName: "l-input-color",
+
 	name: "ColorInput",
+
 	data: function () {
 		return {
 			inputValue: this.value,
-			INPUTSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
 		};
 	},
+
 	props: {
 		value: {
 			type: String,
 			default: "#000000",
+			description: "Hex value of a color.",
 		},
 		size: {
 			type: String,
-			default: "",
+			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(INPUTSIZE),
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disable the control.",
 		},
 	},
+
 	computed: {
 		inputSize: function () {
 			return this.size
-				? normalizeInput(this.INPUTSIZE, this.size)
+				? normalizeInput(INPUTSIZE, this.size)
 				: this.$parent.labelSize
 				? ""
-				: normalizeInput(this.INPUTSIZE, "default");
+				: normalizeInput(INPUTSIZE, "default");
 		},
 		describeBy: function () {
 			return this.$parent.labelID || "";
@@ -64,6 +73,7 @@ export default {
 			return this.$parent.isDisabled || this.disabled;
 		},
 	},
+
 	methods: {
 		onchange: function (event) {
 			this.setValue(event.target.value);
@@ -88,6 +98,30 @@ export default {
 		},
 		getValue: function () {
 			return this.inputValue;
+		},
+	},
+
+	expose_events: {
+		"@change": {
+			description: "Binded action, triggered on value being changed.",
+		},
+		"@focus": {
+			description: "Binded action, triggered on the control being focus.",
+		},
+		"@blur": {
+			description: "Binded action, triggered on the control being blur.",
+		},
+	},
+
+	expose_methods: {
+		onchange: {
+			description: "Programmatically trigger the on change method.",
+		},
+		setValue: {
+			description: "<String> | Set the color hex value.",
+		},
+		getValue: {
+			description: "<String> | Get the select color hex value.",
 		},
 	},
 };

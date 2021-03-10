@@ -27,53 +27,66 @@
 import "./Inputs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const INPUTSIZE = {
+	small: "size-small",
+	default: "size-normal",
+	large: "size-large",
+	xlarge: "size-xlarge",
+};
+
 export default {
 	controlName: "l-input-textarea",
+
 	name: "TextArea",
+
 	data: function () {
 		return {
 			inputValue: this.value,
-			INPUTSIZE: {
-				small: "size-small",
-				default: "size-normal",
-				large: "size-large",
-				xlarge: "size-xlarge",
-			},
 		};
 	},
+
 	props: {
 		placeholder: {
 			type: String,
-			default: "",
+			default: "Textarea",
+			description: "Placeholder text of the control.",
 		},
 		value: {
 			type: String,
 			default: "",
+			description: "Initial value of the control.",
 		},
 		size: {
 			type: String,
-			default: "",
+			default: "default",
+			description: "Size of the text.",
+			options: Object.keys(INPUTSIZE),
 		},
 		disabled: {
 			type: Boolean,
 			default: false,
+			description: "Disable the control.",
 		},
 		error: {
 			type: String,
 			default: "",
+			description: "Passed in error message. Show error message if any.",
 		},
 		charLimit: {
 			type: Number,
 			default: NaN,
+			description:
+				"Set to limit the upper bound of the input characters.",
 		},
 	},
+
 	computed: {
 		inputSize: function () {
 			return this.size
-				? normalizeInput(this.INPUTSIZE, this.size)
+				? normalizeInput(INPUTSIZE, this.size)
 				: this.$parent.labelSize
 				? ""
-				: normalizeInput(this.INPUTSIZE, "default");
+				: normalizeInput(INPUTSIZE, "default");
 		},
 		describeBy: function () {
 			return this.$parent.labelID || "";
@@ -88,6 +101,7 @@ export default {
 			return this.error ? "invalid-input" : "";
 		},
 	},
+
 	methods: {
 		onkeyup: function (event) {
 			this.setValue(event.target.value);
@@ -116,9 +130,34 @@ export default {
 			return this.inputValue;
 		},
 	},
+
 	watch: {
 		charLimit: function (newVal, oldVal) {
 			this.inputValue = "";
+		},
+	},
+
+	expose_events: {
+		"@change": {
+			description: "Binded action, triggered on value being changed.",
+		},
+		"@focus": {
+			description: "Binded action, triggered on the control being focus.",
+		},
+		"@blur": {
+			description: "Binded action, triggered on the control being blur.",
+		},
+	},
+
+	expose_methods: {
+		onchange: {
+			description: "Programmatically trigger the on change method.",
+		},
+		setValue: {
+			description: "<String> | Set the value programmatically.",
+		},
+		getValue: {
+			description: "<String> | Get the value.",
 		},
 	},
 };
