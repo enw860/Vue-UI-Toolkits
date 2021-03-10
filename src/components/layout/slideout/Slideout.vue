@@ -17,27 +17,30 @@
 import "./Slideout.less";
 import { normalizeInput } from "../../../utils/utilities";
 
+const DIRECTION = {
+	left: "slide-left",
+	right: "slide-right",
+};
+
 export default {
 	controlName: "l-slideout",
 	name: "Slideout",
 	data: function () {
 		return {
 			isVisible: false,
-			DIRECTION: {
-				left: "slide-left",
-				right: "slide-right",
-			},
 		};
 	},
 	props: {
 		direction: {
 			type: String,
 			default: "left",
+			description: "Direction of the slideout.",
+			options: Object.keys(DIRECTION),
 		},
 	},
 	computed: {
 		directionClass: function () {
-			return normalizeInput(this.DIRECTION, this.direction);
+			return normalizeInput(DIRECTION, this.direction);
 		},
 	},
 	methods: {
@@ -58,6 +61,26 @@ export default {
 		hideSlideout: function (event) {
 			this.isVisible = false;
 			!!this._events.hide && this.$emit("hide", event);
+		},
+	},
+
+	expose_events: {
+		"@hide": {
+			description:
+				"Binded click action, triggered on slideout being hided.",
+		},
+		"@show": {
+			description:
+				"Binded click action, triggered on slideout being shown.",
+		},
+	},
+
+	expose_methods: {
+		showSlideout: {
+			description: "Programmatically show the slideout.",
+		},
+		hideSlideout: {
+			description: "Programmatically hide the slideout.",
 		},
 	},
 };
