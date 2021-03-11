@@ -72,7 +72,7 @@ export default {
 
 [l-text](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/displayText/DisplayText.vue)
 
-[l-html-text-loader](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/htmlTextLoader/HTMLTextLoader.vue)
+[l-html-text-loader (in progress)](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/htmlTextLoader/HTMLTextLoader.vue)
 
 [l-link](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/link/Link.vue)
 
