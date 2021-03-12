@@ -56,10 +56,12 @@ export default {
 		},
 		showSlideout: function (event) {
 			this.isVisible = true;
+			document.body.classList.add("ScrollLock");
 			!!this._events.show && this.$emit("show", event);
 		},
 		hideSlideout: function (event) {
 			this.isVisible = false;
+			document.body.classList.remove("ScrollLock");
 			!!this._events.hide && this.$emit("hide", event);
 		},
 	},

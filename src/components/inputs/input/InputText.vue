@@ -17,6 +17,7 @@
 				@focus="onfocus"
 				@blur="onblur"
 				@keypress="onkeypress"
+				@keyup="onkeyup"
 			/>
 		</div>
 		<div class="error-message" v-if="!!error">{{ error }}</div>
@@ -118,6 +119,11 @@ export default {
 				!!this._events.keypress &&
 				this.$emit("keypress", event);
 		},
+		onkeyup: function (event) {
+			!this.isDisabled &&
+				!!this._events.keyup &&
+				this.$emit("keyup", event);
+		},
 		setValue: function (newVal) {
 			if (newVal !== this.inputValue) {
 				this.inputValue = newVal;
@@ -140,6 +146,9 @@ export default {
 		},
 		"@keypress": {
 			description: "Binded action, triggered on key being pressed.",
+		},
+		"@keyup": {
+			description: "Binded action, triggered on key being pressed up.",
 		},
 	},
 

@@ -129,19 +129,31 @@ export default {
 					this.$refs.action[index + 1].focus();
 			} else if (keycode === 27) {
 				this.hide = true;
-				window.removeEventListener("click", this.hidePopup, true);
+				window.removeEventListener(
+					"click",
+					this.hidePopupWithCheck,
+					true
+				);
+			}
+		},
+		hidePopupWithCheck: function (event) {
+			if (!this.$el.contains(event.target)) {
+				this.hide = true;
+				window.removeEventListener(
+					"click",
+					this.hidePopupWithCheck,
+					true
+				);
 			}
 		},
 		showPopup: function () {
 			this.hide = false;
-			window.removeEventListener("click", this.hidePopup, true);
-			window.addEventListener("click", this.hidePopup, true);
+			window.removeEventListener("click", this.hidePopupWithCheck, true);
+			window.addEventListener("click", this.hidePopupWithCheck, true);
 		},
-		hidePopup: function (event) {
-			if (!this.$el.contains(event.target)) {
-				this.hide = true;
-				window.removeEventListener("click", this.hidePopup, true);
-			}
+		hidePopup: function () {
+			this.hide = true;
+			window.removeEventListener("click", this.hidePopupWithCheck, true);
 		},
 	},
 

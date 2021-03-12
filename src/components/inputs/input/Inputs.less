@@ -122,9 +122,18 @@
     
     .SingleSelect {
         cursor: pointer;
+        background-color: @grey-010;
+        transition: background-color 70ms cubic-bezier(0.2, 0, 0.38, 0.9),
+                outline 70ms cubic-bezier(0.2, 0, 0.38, 0.9);
+        
+        & > select {
+            z-index: 2;
+            background-color: transparent;
+        }
     }
 
     .SingleSelect:after {
+        z-index: 1;
         content: '\f0d7';
         position: absolute;
         display: flex;
