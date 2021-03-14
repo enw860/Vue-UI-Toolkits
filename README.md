@@ -4,7 +4,10 @@
 ![npm](https://img.shields.io/npm/v/sharkquila_ui_toolkit)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/sharkquila_ui_toolkit)
 	
-The toolkits were designed for minimizing the amount of effot that spend on writting basic UI components while building a website. Those high quality toolkits will handle not only the UI details but also provide a standardlize UX experience across all of your pages.
+Sharkquila UI toolkits were designed for minimizing the amount of effot that spend on writting the basic UI components while building a website. Those toolkits will handle not only the visual effects of the control but also provide a standardlize UX experience across all the pages.
+
+All the stylesheets were written in less, you will need to use webpack:less-loader or any
+equivalent tools to bake the style into your own project.
 
 Please view the [Demo repo](https://github.com/enw860/sharkquila_ui_demo) page for more information.
 
@@ -72,7 +75,7 @@ export default {
 
 [l-text](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/displayText/DisplayText.vue)
 
-[l-html-text-loader (in progress)](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/htmlTextLoader/HTMLTextLoader.vue)
+[l-html-text-loader](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/htmlTextLoader/HTMLTextLoader.vue)
 
 [l-link](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/link/Link.vue)
 
