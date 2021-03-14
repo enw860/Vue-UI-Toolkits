@@ -10,6 +10,11 @@
 	padding: 4px 8px;
 	border-left: 30px solid @grey-080;
 	min-height: 12px;
+
+	position: sticky;
+	left: 0;
+	top: 0;
+	width: 100%;
 	
 	span {
 		color: @grey-050;
@@ -56,6 +61,10 @@
 			min-width: 30px;
 			text-align: center;
 			background-color: @grey-080;
+
+			position: sticky;
+			left: 0;
+			z-index: 5;
 
 			// make the index unselectable
 			-moz-user-select: -moz-none;
