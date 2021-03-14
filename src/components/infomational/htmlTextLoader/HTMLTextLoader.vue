@@ -20,7 +20,6 @@ export default {
 		return {
 			lineCounter: 0,
 			parsedTags: [],
-			subItemsToNewLevelOffset: this.wrapOffset,
 			SYNTAX: {
 				COMMENT_TAG: {
 					name: "comment_tag",
@@ -28,7 +27,7 @@ export default {
 				},
 				CLOSE_TAG: {
 					name: "close_tag",
-					expression: /^(<\/)([\w+-?]+)(>)$/,
+					expression: /^(<\/)([\w+-?]+)\s*(>)$/,
 				},
 				SELF_CLOSE_TAG: {
 					name: "self_close_tag",
@@ -40,54 +39,96 @@ export default {
 				},
 				INLINE_TEXT: {
 					name: "inline_text",
-					expression: /[^<]+/,
+					expression: /.+/,
 				},
 				ATTRIBUTE: {
 					name: "attribute",
-					expression: /([:@]?[a-zA-Z0-9](-?[a-zA-Z0-9])*)(="[^"]*")\s*/,
+					expression: /([:@]?[a-zA-Z](-?[a-zA-Z0-9])*)(="[^"]*")\s*/,
 				},
 				STATUS: {
 					name: "status",
-					expression: /([a-zA-Z0-9](-?[a-zA-Z0-9])*)\s*/,
+					expression: /([a-zA-Z](-?[a-zA-Z0-9])*)\s*/,
 				},
 			},
 		};
 	},
+
 	props: {
 		value: {
 			type: String,
 			default: "",
+			description: "DOM style code.",
 		},
 		type: {
 			type: String,
 			default: "<HTML>",
+			description: "Type label of the control.",
 		},
 		wrapOffset: {
 			type: Number,
 			default: 3,
+			description: "Min number of attributes will trigger tag wrap up.",
 		},
 	},
+
 	methods: {
+		getTag: function (value = "") {
+			let tagStart = -1;
+			let openQuotes = [];
+			let QUOTES = ['"', "'", "`"];
+
+			if (!value) {
+				return null;
+			}
+
+			for (let index = 0; index < value.length; index++) {
+				const c = value[index];
+
+				if (c === "<" && tagStart < 0) {
+					tagStart = index;
+				} else if (
+					c === ">" &&
+					openQuotes.length === 0 &&
+					tagStart > -1
+				) {
+					return {
+						matchedStr: value.substring(tagStart, index + 1),
+						tagStart: tagStart,
+						endIndex: index,
+					};
+				} else if (QUOTES.indexOf(c) > -1 && tagStart > -1) {
+					if (openQuotes[openQuotes.length - 1] === c) {
+						openQuotes.pop();
+					} else {
+						openQuotes.push(c);
+					}
+				} else if (c === "<" && openQuotes.length === 0) {
+					throw "ERROR: unexpected <";
+				}
+			}
+
+			if (openQuotes.length > 0) {
+				throw "ERROR: unclosed quotes";
+			}
+
+			throw "ERROR: unclosed tag";
+		},
 		getTags: function* () {
 			let source = this.value || "";
-			let tag = source.match(/(<[^>]+>)\s*/);
+			let tag = this.getTag(source);
 			while (tag) {
-				if (tag.index === 0) {
-					yield tag[1];
-					source = this.cutTextAtRange(
-						source,
-						tag.index,
-						tag[0].length
-					);
-				} else {
-					const text = source.substring(0, tag.index).trim();
-					source = this.cutTextAtRange(source, 0, tag.index);
-
-					if (text !== "") {
-						yield text;
-					}
+				const inlineText = source
+					.substring(0, tag.tagStart)
+					.trimLeft()
+					.trimRight();
+				if (inlineText) {
+					yield inlineText;
 				}
-				tag = source.match(/(<[^>]+>)/);
+
+				yield tag.matchedStr;
+
+				source = source.substring(tag.endIndex + 1);
+				tag = this.getTag(source);
 			}
 		},
 		getClasscification: function (tag) {
@@ -244,15 +285,21 @@ export default {
 			return root;
 		},
 		updateParseTree: function () {
-			[
-				this.tokenizedTags,
-				this.createParseTree,
-				this.plotParseTree,
-			].reduce((acc, callback) => {
-				return callback(acc);
-			}, null);
+			try {
+				[
+					this.tokenizedTags,
+					this.createParseTree,
+					this.plotParseTree,
+				].reduce((acc, callback) => {
+					return callback(acc);
+				}, null);
 
-			this.adjustContentWidth();
+				this.adjustContentWidth();
+
+				this.emitError(null);
+			} catch (e) {
+				this.emitError(e);
+			}
 		},
 		indentation: function (level) {
 			return Array(level || 0)
@@ -285,7 +332,7 @@ export default {
 					codeSpan,
 					parseTree,
 					false,
-					subItems > this.subItemsToNewLevelOffset,
+					subItems > this.wrapOffset,
 					level
 				);
 
@@ -430,7 +477,7 @@ export default {
 
 					this.createTextElement(
 						"em",
-						statues.name,
+						state.name,
 						"HTMLStatues spacer",
 						targetSpan
 					);
@@ -535,14 +582,30 @@ export default {
 				this.$refs.loader.style.width = baseWidth + "px";
 			}
 		},
+		emitError: function (error) {
+			this.error = error;
+			!!this._events.error && this.$emit("error", this.error);
+		},
 	},
+
 	watch: {
 		value: function (newVal, oldVal) {
 			newVal && this.updateParseTree();
 		},
+		wrapOffset: function (newVal, oldVal) {
+			newVal && this.updateParseTree();
+		},
 	},
+
 	mounted: function () {
 		this.value && this.updateParseTree();
+	},
+
+	expose_events: {
+		"@error": {
+			description:
+				"Binded action, triggered when there are some error on the input DOM tree.",
+		},
 	},
 };
 </script>
