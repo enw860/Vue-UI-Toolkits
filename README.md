@@ -9,6 +9,8 @@ Sharkquila UI toolkits were designed for minimizing the amount of effot that spe
 All the stylesheets were written in less, you will need to use webpack:less-loader or any
 equivalent tools to bake the style into your own project.
 
+You can initiate your own project with this [template](https://github.com/enw860/sharkquila_quick_startup) as a quick startup. 
+
 Please view the [Demo repo](https://github.com/enw860/sharkquila_ui_demo) page for more information.
 
 Or, see the demo site at [Docker image](https://hub.docker.com/repository/docker/wulionel/sharkquila_ui)
