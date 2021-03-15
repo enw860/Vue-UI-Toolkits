@@ -2,8 +2,8 @@ import { pluginFactory } from "../../utils/plugins";
 
 import Dropdown from "./dropDown";
 import LabelWrapper from "./labelWrapper";
-import Popup from "./Popup";
-import Tooltip from "./Tooltip";
+import Popup from "./popup";
+import Tooltip from "./tooltip";
 
 export default pluginFactory({
     plugins: [
