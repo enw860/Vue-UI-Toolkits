@@ -12,12 +12,19 @@
 @font-size-xxl: 13 * @font-size-unit;
 @font-size-xxxl: 16 * @font-size-unit;
 
-// Margin
-@margin-base-unit: 8px;
-@margin-sm: 1 * @margin-base-unit;
-@margin-rg: 2 * @margin-base-unit;
-@margin-lg: 3 * @margin-base-unit;
-@margin-xl: 4 * @margin-base-unit;
+// Spacing
+@spacing-base-unit: 2px;
+@spacing-00: 0.5 * @spacing-base-unit;
+@spacing-01: 1 * @spacing-base-unit;
+@spacing-02: 2 * @spacing-base-unit;
+@spacing-03: 4 * @spacing-base-unit;
+@spacing-04: 6 * @spacing-base-unit;
+@spacing-05: 8 * @spacing-base-unit;
+@spacing-06: 12 * @spacing-base-unit;
+@spacing-07: 16 * @spacing-base-unit;
+@spacing-08: 24 * @spacing-base-unit;
+@spacing-09: 32 * @spacing-base-unit;
+@spacing-10: 48 * @spacing-base-unit;
 
 // font color
 @font-black: @grey-080;
@@ -25,7 +32,7 @@
 @font-disabled: @grey-030;
 
 // Avatar
-@avatar-size-base: 16px;
+@avatar-size-base: @spacing-05;
 @avatar-sm: 1.5 * @avatar-size-base;
 @avatar-rg: 2 * @avatar-size-base;
 @avatar-lg: 3 * @avatar-size-base;
