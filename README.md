@@ -6,10 +6,18 @@
 	
 Sharkquila UI toolkits were designed for minimizing the amount of effot that spend on writting the basic UI components while building a website. Those toolkits will handle not only the visual effects of the control but also provide a standardlize UX experience across all the pages.
 
-All the stylesheets were written in less, you will need to use webpack:less-loader or any
-equivalent tools to bake the style into your own project.
+All the stylesheets were written in less, you will need to use webpack:less-loader or any equivalent tools to bake the style into your own project.
 
 You can initiate your own project with this [template](https://github.com/enw860/sharkquila_quick_startup) as a quick startup. 
+
+To need a less file to load all the relavent styles:
+```less
+@import "sharkquila_ui_toolkit/src/style/theme/index.less";
+
+// add custom theme variable here (themable feature)
+
+@import "sharkquila_ui_toolkit/src/components/index.less";
+```
 
 Please view the [Demo repo](https://github.com/enw860/sharkquila_ui_demo) page for more information.
 
@@ -30,6 +38,9 @@ Firstly, installing plugins at the mounting file.
 ```js
 import Vue from 'vue';
 import SKPlugins from "sharkquila_ui_toolkit";
+
+// import your root style.less file here
+import "./style/style.less";
 
 Vue.use(SKPlugins)
 
