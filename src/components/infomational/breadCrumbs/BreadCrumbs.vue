@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import "./BreadCrumbs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const SIZE = {

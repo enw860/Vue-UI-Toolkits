@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import "./Button.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
 const ICON_POSITION = {

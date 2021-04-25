@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import "./Timer.less";
 import CircleRanger from "./CircleRanger";
 
 export default {

@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import "./HTMLTextLoader.less";
-
 export default {
 	controlName: "l-html-text-loader",
 
