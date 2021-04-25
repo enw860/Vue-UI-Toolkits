@@ -1,0 +1,114 @@
+@import "../../../style/theme/theme.less";
+
+@slider-base-height: 4px;
+
+.Slider-wrapper {
+    width: 100%;
+
+    &.slider-primary .Slider-value,
+    &.slider-primary .Slider-thumb:focus,
+    &.slider-primary .Slider-node.checked {
+        background-color: @primary-060;
+    }
+
+    &.slider-success .Slider-value,
+    &.slider-success .Slider-thumb:focus,
+    &.slider-success .Slider-node.checked {
+        background-color: @success-060;
+    }
+
+    &.slider-info .Slider-value,
+    &.slider-info .Slider-thumb:focus,
+    &.slider-info .Slider-node.checked {
+        background-color: @info-060;
+    }
+
+    &.slider-danger .Slider-value,
+    &.slider-danger .Slider-thumb:focus,
+    &.slider-danger .Slider-node.checked {
+        background-color: @danger-060;
+    }
+
+    &.size-small .Slider-main {
+        .setTrackerSize(@slider-base-height);
+    }
+
+    &.size-normal .Slider-main {
+        .setTrackerSize(1.5 * @slider-base-height);
+    }
+
+    &.size-large .Slider-main {
+        .setTrackerSize(2 * @slider-base-height);
+    }
+
+    &.size-xlarge .Slider-main {
+        .setTrackerSize(2.5 * @slider-base-height);
+    }
+
+    .Slider-main {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Slider-track {
+        z-index: 2;
+        position: absolute;
+    }
+
+    .Slider-thumb {
+        z-index: 3;
+        border-radius: 100%;
+        position: absolute;
+        background-color: @white;
+        box-shadow: 0 0 4px 2px @grey-030;
+
+        &:focus {
+            outline: 0;
+            box-shadow: 0 0 0 1px @white, 0 0 0 3px @primary-060;
+        }
+    }
+
+    .Slider-nodes {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        z-index: 1;
+
+        .Slider-node{
+            border-radius: 100%;
+            background-color: @white;
+        }
+    }
+}
+
+// mixin functions
+.setTrackerSize(@tracker-height) {
+    .Slider-track, .Slider-value {
+        border-radius: 16px;
+    }
+
+    .Slider-track {
+        width: calc(~"100%" - 2 * @tracker-height);
+        background-color: @white;
+        height: @tracker-height;
+        top: 0.5 * @tracker-height;
+        left: 1 * @tracker-height;
+    }
+
+    .Slider-value {
+        height: 100%;
+    }
+
+    .Slider-node, .Slider-thumb {
+        width: 2 * @tracker-height;
+        height: 2 * @tracker-height;
+    }
+
+    .Slider-thumb {
+        top: -0.5 * @tracker-height;
+        margin-left: -1 * @tracker-height;
+    }
+}

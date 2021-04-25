@@ -1,8 +1,8 @@
-import Ranger from "./Ranger.vue";
+import Slider from "./Slider.vue";
 import { pluginFactory } from "../../../utils/plugins";
 
 export default pluginFactory({
     components: [
-        Ranger
+        Slider
     ]
 })
