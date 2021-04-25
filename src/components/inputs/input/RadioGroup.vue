@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import "./Inputs.less";
 import { generateComponentID, normalizeInput } from "../../../utils/utilities";
 
 const LAYOUT = {

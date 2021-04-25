@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import "./Slider.less";
 import { generateComponentID, normalizeInput } from "../../../utils/utilities";
 
 const SIZE = {

@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import "./Inputs.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
 const INPUTSIZE = {
