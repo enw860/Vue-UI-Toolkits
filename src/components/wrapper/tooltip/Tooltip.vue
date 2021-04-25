@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import "./Tooltip.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
 const INPUTSIZE = {

@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import "./Popup.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const SIZE = {

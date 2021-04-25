@@ -1,4 +1,5 @@
 import { pluginFactory } from "../../utils/plugins";
+import "./index.less";
 
 import Dropdown from "./dropDown";
 import LabelWrapper from "./labelWrapper";

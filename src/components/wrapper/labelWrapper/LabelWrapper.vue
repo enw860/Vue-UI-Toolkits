@@ -13,7 +13,6 @@
 </template>
 
 <script>
-import "./LabelWrapper.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
 const POSITION = {
