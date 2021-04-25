@@ -1,5 +1,4 @@
 import { pluginFactory } from "../../utils/plugins";
-import "./index.less";
 
 import Input from "./input";
 import Slider from "./slider";

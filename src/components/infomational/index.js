@@ -1,5 +1,4 @@
 import { pluginFactory } from "../../utils/plugins";
-import "./index.less";
 
 import Avatar from "./avatar";
 import Badge from "./badge";
