@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import "./Separator.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const DIRECTION = {
