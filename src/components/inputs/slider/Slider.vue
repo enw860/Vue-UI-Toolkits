@@ -286,9 +286,7 @@ export default {
 			this.selectedValue = value;
 		},
 		getValue: function () {
-			if (this.type === "range") {
-				return this.selectedValue;
-			} else if (this.type === "select") {
+			if (this.type === "select") {
 				for (let i = 0; i < this.options.length; i++) {
 					const opt = this.options[i];
 					if (opt.value === this.selectedValue) {
@@ -296,6 +294,7 @@ export default {
 					}
 				}
 			}
+			return this.selectedValue;
 		},
 	},
 
