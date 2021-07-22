@@ -1,5 +1,3 @@
-@import "../../../style/theme/theme.less";
-
 .Popup {
     position: relative;
     width: max-content;
@@ -8,11 +6,11 @@
         position: absolute;
         top: 100%;
         background-color: @grey-010;
-        padding: @margin-sm 0;
+        padding: @spacing-03 0;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
         max-width: 450px;
         min-width: 150px;
-        margin-top: 4px;
+        margin-top: @spacing-02;
 
         &.left {
             left: 0;
@@ -29,10 +27,10 @@
 
             & > div[role="button"] {
                 cursor: pointer;
-                    padding: @margin-sm @margin-rg;
+                    padding: @spacing-03 @spacing-05;
 
                 .fa {
-                    padding-right: 4px;
+                    padding-right: @spacing-02;
                 }
 
                 &:hover {
@@ -57,7 +55,7 @@
             .separator {
                 height: 0;
                 border: 1px solid @grey-030;
-                padding: 0 @margin-sm;
+                padding: 0 @spacing-03;
             }
         }
     }

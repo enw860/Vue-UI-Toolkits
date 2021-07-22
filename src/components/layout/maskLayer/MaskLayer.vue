@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import "./MaskLayer.less";
-
 export default {
 	controlName: "l-masklayer",
 	name: "MaskLayer",

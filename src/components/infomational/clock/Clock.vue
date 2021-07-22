@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import "./Timer.less";
 import CircleRanger from "./CircleRanger";
 
 export default {
@@ -154,7 +153,7 @@ export default {
 			_ranger.setValue(rangerValue);
 		},
 	},
-	mounted() {
+	mounted: function () {
 		this.updateClock();
 		this.interval = setInterval(this.updateClock, 1000);
 	},

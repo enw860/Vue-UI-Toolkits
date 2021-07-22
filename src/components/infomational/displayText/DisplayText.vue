@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import "./DisplayText.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const SIZE = {

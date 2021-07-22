@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import "./Inputs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const INPUTSIZE = {

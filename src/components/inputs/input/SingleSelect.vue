@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import "./Inputs.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
 const INPUTSIZE = {
@@ -47,7 +46,7 @@ export default {
 	props: {
 		options: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "Range of options.",
 		},
 		value: {

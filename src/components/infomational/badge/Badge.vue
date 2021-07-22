@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import "./Badge.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const VPOSITIONS = {

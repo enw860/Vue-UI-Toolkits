@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import "./Toggle.less";
 import { normalizeInput, generateComponentID } from "../../../utils/utilities";
 
 const LABELTYPE = {

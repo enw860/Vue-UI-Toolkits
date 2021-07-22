@@ -1,0 +1,172 @@
+@slider-base-height: 4px;
+
+.Slider-wrapper {
+    width: 100%;
+
+    * {
+        outline: 0;
+    }
+
+    &.disabled {
+        .Slider-value, .Slider-node.checked, .Slider-thumb {
+            background-color: @grey-050 !important;
+        }
+    }
+
+    &.slider-primary .Slider-value,
+    &.slider-primary .Slider-thumb[tabindex="0"]:focus,
+    &.slider-primary .Slider-node.checked,
+    &.slider-primary .Slider-node[tabindex="0"]:focus {
+        background-color: @primary-060;
+    }
+
+    &.slider-success .Slider-value,
+    &.slider-success .Slider-thumb[tabindex="0"]:focus,
+    &.slider-success .Slider-node.checked,
+    &.slider-success .Slider-node[tabindex="0"]:focus {
+        background-color: @success-060;
+    }
+
+    &.slider-info .Slider-value,
+    &.slider-info .Slider-thumb[tabindex="0"]:focus,
+    &.slider-info .Slider-node.checked,
+    &.slider-info .Slider-node[tabindex="0"]:focus {
+        background-color: @info-060;
+    }
+
+    &.slider-danger .Slider-value,
+    &.slider-danger .Slider-thumb[tabindex="0"]:focus,
+    &.slider-danger .Slider-node.checked,
+    &.slider-danger .Slider-node[tabindex="0"]:focus {
+        background-color: @danger-060;
+    }
+
+    &.size-small .Slider-main {
+        .setTrackerSize(@slider-base-height);
+    }
+
+    &.size-normal .Slider-main {
+        .setTrackerSize(1.5 * @slider-base-height);
+    }
+
+    &.size-large .Slider-main {
+        .setTrackerSize(2 * @slider-base-height);
+    }
+
+    &.size-xlarge .Slider-main {
+        .setTrackerSize(2.5 * @slider-base-height);
+    }
+
+    .Slider-main {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Slider-track {
+        z-index: 1;
+        position: absolute;
+    }
+
+    .Slider-thumb {
+        z-index: 3;
+        border-radius: 100%;
+        position: absolute;
+        background-color: @white;
+        box-shadow: 0 0 4px 2px @grey-030;
+        .appendTooltip();
+    }
+
+    .Slider-nodes {
+        width: 100%;
+        position: relative;
+        
+        .Slider-node {
+            z-index: 2;
+            border-radius: 100%;
+            background-color: @white;
+            position: absolute;
+            transform: translateX(-50%);
+            .appendTooltip();
+        }
+    }
+}
+
+// mixin functions
+.setTrackerSize(@tracker-height) {
+    padding-left: @tracker-height;
+    padding-right: @tracker-height;
+
+    .Slider-track, .Slider-value {
+        border-radius: 16px;
+    }
+
+    .Slider-track {
+        width: calc(~"100%" - 2 * @tracker-height);
+        background-color: @white;
+        height: @tracker-height;
+        top: 0.5 * @tracker-height;
+    }
+
+    .Slider-value {
+        height: 100%;
+    }
+
+    .Slider-node, .Slider-thumb {
+        width: 2 * @tracker-height;
+        height: 2 * @tracker-height;
+    }
+
+    .Slider-thumb {
+        transform: translateX(-50%) translateY(-75%);
+    }
+}
+
+
+.appendTooltip() {
+    &[tabindex="0"] {
+        cursor: pointer;
+
+        &:focus {
+            box-shadow: 0 0 0 1px @white, 0 0 0 3px @primary-060;
+        }
+    }
+
+    &:hover,
+    &[tabindex="0"]:focus {
+        &::after,
+        &::before {
+            z-index: 3;
+
+            background: @grey-090;
+            color: @white;
+
+            position: absolute;
+            left: 50%;
+            top: -0.75em;
+            transform: translateX(-50%) translateY(-100%);
+            transition: 150ms transform;
+            transform-origin: bottom center;
+        }
+
+        &::before {
+            content: " ";
+            padding: 8px;
+            left: ~"calc(50% - 6px)";
+            transform: translateX(-50%) translateY(-100%) rotate(45deg);
+            
+        }
+
+        &::after {
+            content: attr(data-tooltip);
+            padding: 0.5em 0.75em;
+            border-radius: 0.3em;
+            
+            width: max-content;
+            min-width: 3rem;
+            height: 2em;
+            text-align: center;
+        }
+    }
+}

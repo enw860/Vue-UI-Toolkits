@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import "./BreadCrumbs.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const SIZE = {
@@ -52,7 +51,7 @@ export default {
 	props: {
 		steps: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "[{name: <name>, click: <function>}...]",
 			validator: (steps) =>
 				steps.every((step) => {

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import "./Inputs.less";
 import { generateComponentID, normalizeInput } from "../../../utils/utilities";
 
 const LAYOUT = {
@@ -65,12 +64,12 @@ export default {
 		},
 		options: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "Range of options.",
 		},
 		value: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "List of selected values.",
 		},
 		disabled: {

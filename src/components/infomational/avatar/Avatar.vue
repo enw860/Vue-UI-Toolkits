@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import "./Avatar.less";
 import { normalizeInput, randDarkColor } from "../../../utils/utilities";
 
 const SHAPES = {

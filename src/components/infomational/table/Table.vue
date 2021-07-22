@@ -28,8 +28,6 @@
 </template>
 
 <script>
-import "./Table.less";
-
 export default {
 	controlName: "l-table",
 

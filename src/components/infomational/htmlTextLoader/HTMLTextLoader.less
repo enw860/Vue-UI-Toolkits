@@ -1,5 +1,3 @@
-@import "../../../style/theme/theme.less";
-
 .HTMLTextLoaderWrapper {
 	width: 100%;
 	overflow-x: auto;
@@ -7,9 +5,9 @@
 }
 
 .HTMLTextHeaderWrapper, .HTMLTextFooterWrapper {
-	padding: 4px 8px;
+	padding: @spacing-02 @spacing-03;
 	border-left: 30px solid @grey-080;
-	min-height: 12px;
+	min-height: @spacing-04;
 
 	position: sticky;
 	left: 0;
@@ -18,7 +16,7 @@
 	
 	span {
 		color: @grey-050;
-		line-height: 24px;
+		line-height: @font-size-xxl;
 	}
 }
 
@@ -26,7 +24,7 @@
 	color: @white;
 
 	.Line {
-		line-height: 24px;
+		line-height: @font-size-xxl;
 		display: flex;
 		flex-direction: row;
 		margin: 0;
@@ -58,7 +56,7 @@
 		}
 
 		.Line-Index {
-			min-width: 30px;
+			min-width: @spacing-07;
 			text-align: center;
 			background-color: @grey-080;
 
@@ -75,7 +73,7 @@
 		}
 
 		.Line-Control {
-			min-width: 24px;
+			min-width: @spacing-06;
 			text-align: center;
 		}
 
@@ -101,7 +99,7 @@
 			}
 
 			.spacer {
-				margin-right: 4px;
+				margin-right: @spacing-02;
 			}
 		}
 	}

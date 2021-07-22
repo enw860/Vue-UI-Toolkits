@@ -1,6 +1,3 @@
-<style lang="less">
-</style>
-
 <template>
 	<div
 		class="Slideout"
@@ -14,7 +11,6 @@
 </template>
 
 <script>
-import "./Slideout.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const DIRECTION = {

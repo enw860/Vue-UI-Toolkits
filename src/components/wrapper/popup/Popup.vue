@@ -35,7 +35,6 @@
 </template>
 
 <script>
-import "./Popup.less";
 import { normalizeInput } from "../../../utils/utilities";
 
 const SIZE = {
@@ -66,7 +65,7 @@ export default {
 	props: {
 		value: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description:
 				"Options of the popup menu. [{name, icon, method, disabled}...]",
 		},
