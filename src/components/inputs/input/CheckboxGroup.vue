@@ -64,12 +64,12 @@ export default {
 		},
 		options: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "Range of options.",
 		},
 		value: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "List of selected values.",
 		},
 		disabled: {

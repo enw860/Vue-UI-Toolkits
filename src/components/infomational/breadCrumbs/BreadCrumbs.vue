@@ -51,7 +51,7 @@ export default {
 	props: {
 		steps: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "[{name: <name>, click: <function>}...]",
 			validator: (steps) =>
 				steps.every((step) => {

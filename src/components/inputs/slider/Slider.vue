@@ -321,7 +321,7 @@ export default {
 		},
 	},
 
-	mounted: {},
+	mounted: function () {},
 
 	expose_events: {
 		"@change": {

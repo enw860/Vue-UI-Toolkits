@@ -153,7 +153,7 @@ export default {
 			_ranger.setValue(rangerValue);
 		},
 	},
-	mounted() {
+	mounted: function () {
 		this.updateClock();
 		this.interval = setInterval(this.updateClock, 1000);
 	},

@@ -46,7 +46,7 @@ export default {
 	props: {
 		options: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "Range of options.",
 		},
 		value: {

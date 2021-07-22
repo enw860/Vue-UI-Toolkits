@@ -64,7 +64,7 @@ export default {
 		},
 		options: {
 			type: Array,
-			default: [],
+			default: () => [],
 			description: "Range of options.",
 		},
 		value: {
