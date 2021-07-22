@@ -7,9 +7,16 @@
 			<div class="Slider-nodes" v-if="inputType === 'slider-select'">
 				<div
 					class="Slider-node"
+					v-bind:tabindex="mute || isDisabled ? '1' : '0'"
 					v-for="option in computedOptions"
 					:key="option.controlID"
 					v-bind:class="[option.isChecked ? 'checked' : '']"
+					@click="() => setValue(option.value)"
+					@keypress="(e) => onKeyPress(e, option.value)"
+					v-bind:data-tooltip="option.label"
+					v-bind:style="{
+						left: option.left,
+					}"
 				></div>
 			</div>
 
@@ -22,12 +29,14 @@
 				></div>
 				<div
 					class="Slider-thumb"
-					tabindex="0"
+					v-bind:data-tooltip="selectedValue"
+					v-bind:tabindex="muteRanger || isDisabled ? '1' : '0'"
 					v-bind:style="{
 						left: computedValue + '%',
 					}"
 					@mousedown="rangerDown"
 					@mouseup="rangerRelease"
+					@keydown="modifyValue"
 				></div>
 			</div>
 		</div>
@@ -66,22 +75,34 @@ export default {
 		return {
 			controlID: "",
 			onHold: false,
-			seletedValue: this.value,
+			selectedValue: this.value,
 		};
 	},
 
 	props: {
 		value: {
-			type: String,
-			default: "50",
-			description: "Initial selected value of the control.",
+			type: Number,
+			default: 50,
+			description: "Initial value of the control.",
+		},
+		min: {
+			type: Number,
+			default: 0,
+			description: "Min value of the control.",
+		},
+		max: {
+			type: Number,
+			default: 100,
+			description: "Max value of the control.",
 		},
 		options: {
 			type: Array,
 			default: () => {
 				return [
-					{ value: 0, label: "0%" },
-					{ value: 100, label: "100%" },
+					{ value: 0, label: "OPT1" },
+					{ value: 25, label: "OPT2" },
+					{ value: 50, label: "OPT3" },
+					{ value: 100, label: "OPT4" },
 				];
 			},
 			description:
@@ -110,23 +131,19 @@ export default {
 			default: false,
 			description: "Disable the control.",
 		},
+		mute: {
+			type: Boolean,
+			default: false,
+			description: "Mute sliders",
+		},
 	},
 
 	computed: {
 		computedValue: function () {
-			let value = parseFloat(this.seletedValue);
-
-			this.options.forEach((option, index) => {
-				let optPercentage =
-					(100 * index) /
-					(this.options.length > 1 ? this.options.length - 1 : 1);
-
-				if (option === this.seletedValue) {
-					value = optPercentage;
-				}
-			});
-
-			return value;
+			let percentage =
+				(this.selectedValue - this.min) / (this.max - this.min);
+			percentage = percentage < 0 ? 0 : Math.min(percentage, 100);
+			return Math.round(percentage * 1000) / 10;
 		},
 		computedOptions: function () {
 			if (!this.controlID) {
@@ -134,14 +151,16 @@ export default {
 			}
 
 			return this.options.map((option, index) => {
-				let optPercentage =
-					(100 * index) /
-					(this.options.length > 1 ? this.options.length - 1 : 1);
+				let percentage =
+					(option.value - this.min) / (this.max - this.min);
+				percentage = percentage < 0 ? 0 : Math.min(percentage, 100);
+				percentage = Math.round(percentage * 1000) / 10;
 
 				return {
 					...option,
-					isChecked: parseFloat(this.computedValue) > optPercentage,
+					isChecked: parseFloat(this.selectedValue) >= option.value,
 					controlID: `${this.controlID}-opt${index}`,
+					left: percentage + "%",
 				};
 			});
 		},
@@ -164,20 +183,24 @@ export default {
 		isDisabled: function () {
 			return this.$parent.isDisabled || this.disabled;
 		},
+		muteRanger: function () {
+			return this.mute || this.type === "select";
+		},
 	},
 
 	methods: {
 		rangerDown: function () {
-			if (this.muteRanger) return;
+			if (this.muteRanger || this.isDisabled) return;
 
 			if (!this.onHold) {
 				this.onHold = true;
 				document.addEventListener("mousemove", this.dragRangerHandler);
 			}
 		},
-
-		rangerRelease: function () {
-			if (this.muteRanger) return;
+		rangerRelease: function (event, force) {
+			if (!force) {
+				if (this.muteRanger || this.isDisabled) return;
+			}
 
 			if (this.onHold) {
 				this.onHold = false;
@@ -185,43 +208,122 @@ export default {
 					"mousemove",
 					this.dragRangerHandler
 				);
+
+				if (!force) {
+					this.$emit("change", event, this.getValue());
+				}
 			}
 		},
-
 		dragRangerHandler: function (e) {
-			const { getPoints, computeVector } = this;
-
-			// const [center, start, cursor] = getPoints(e);
-
-			console.warn(
-				this.$refs._slider_wrapper.getBoundingClientRect(),
-				e.target.getBoundingClientRect()
-			);
-		},
-
-		getPoints: function (e) {
 			const { _slider_wrapper } = this.$refs;
-			const {
-				top,
-				left,
-				width,
-				height,
-			} = _slider_wrapper.getBoundingClientRect();
 
-			const center = [left + width / 2, top + height / 2];
-			const start = [left + width / 2, top];
-			const cursor = [e.clientX, e.clientY];
+			if (!_slider_wrapper) return;
 
-			return [center, start, cursor];
+			const { left, width } = _slider_wrapper.getBoundingClientRect();
+
+			let percentage = (e.clientX - left) / width;
+			percentage = Math.round(percentage * 1000) / 1000;
+			percentage =
+				percentage < 0
+					? Math.max(0, percentage)
+					: Math.min(percentage, 1);
+
+			const value = (this.max - this.min) * percentage + this.min;
+			this.setValue(Math.round(value));
+		},
+		onKeyPress: function (event, value) {
+			if (!this.muteRanger || this.isDisabled) return;
+
+			if (
+				[13, 32].some((code) => code === (event.keyCode || event.which))
+			) {
+				this.setValue(value);
+				this.$emit("change", event, this.getValue());
+			}
+		},
+		modifyValue: function (event) {
+			if (this.muteRanger || this.isDisabled) return;
+
+			const keycode = parseInt(event.keyCode || event.which);
+			if ([37].some((code) => code === keycode)) {
+				// left key
+				this.setValue(this.selectedValue - 1);
+			} else if ([39].some((code) => code === keycode)) {
+				// right key
+				this.setValue(this.selectedValue + 1);
+			}
+		},
+		adjustSelectedValue: function () {
+			// move the slider to a reasonable position
+			if ([TYPE["range"], "range"].indexOf(this.type) >= 0) {
+				if (this.selectedValue < this.min) {
+					this.selectedValue = this.min;
+				} else if (this.selectedValue > this.max) {
+					this.selectedValue = this.max;
+				}
+			} else if ([TYPE["select"], "select"].indexOf(this.type) >= 0) {
+				if (
+					!this.options
+						.map((opt) => opt.value)
+						.some((opt) => opt === this.selectedValue)
+				) {
+					this.selectedValue = this.options[0].value;
+				}
+			}
+		},
+		setValue: function (value) {
+			if (this.isDisabled) return;
+			this.selectedValue = value;
+		},
+		getValue: function () {
+			if (this.type === "range") {
+				return this.selectedValue;
+			} else if (this.type === "select") {
+				for (let i = 0; i < this.options.length; i++) {
+					const opt = this.options[i];
+					if (opt.value === this.selectedValue) {
+						return opt;
+					}
+				}
+			}
 		},
 	},
 
-	watch: {},
+	watch: {
+		muteRanger(newVal, oldVal) {
+			// force cancel the mouse move event
+			this.rangerRelease(null, true);
+		},
+		inputType(newVal, oldVal) {
+			this.adjustSelectedValue();
+		},
+		options(newVal, oldVal) {
+			this.adjustSelectedValue();
+		},
+		min(newVal, oldVal) {
+			this.adjustSelectedValue();
+		},
+		max(newVal, oldVal) {
+			this.adjustSelectedValue();
+		},
+		selectedValue(newVal, oldVal) {
+			this.adjustSelectedValue();
+		},
+	},
 
 	mounted: {},
 
-	expose_events: {},
+	expose_events: {
+		"@change": {
+			description:
+				"Binded action, triggered when slider value has been changed.",
+		},
+	},
 
-	expose_methods: {},
+	expose_methods: {
+		getValue: {
+			description: "Get value at the slider cursor position.",
+		},
+	},
 };
 </script>
