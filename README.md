@@ -94,6 +94,8 @@ export default {
 
 ### Inputs
 
+*[l-input-slider](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/inputs/slider/Slider.vue)
+
 [l-input-color](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/inputs/input/ColorInput.vue)
 
 [l-input-file](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/inputs/input/FileInput.vue)
