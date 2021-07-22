@@ -11,8 +11,8 @@
 					v-for="option in computedOptions"
 					:key="option.controlID"
 					v-bind:class="[option.isChecked ? 'checked' : '']"
-					@click="() => setValue(option.value)"
-					@keypress="(e) => onKeyPress(e, option.value)"
+					@click="(e) => setOption(e, 'click', option.value)"
+					@keypress="(e) => setOption(e, 'keypress', option.value)"
 					v-bind:data-tooltip="option.label"
 					v-bind:style="{
 						left: option.left,
@@ -184,7 +184,9 @@ export default {
 			return this.$parent.isDisabled || this.disabled;
 		},
 		muteRanger: function () {
-			return this.mute || this.type === "select";
+			return (
+				this.mute || [TYPE["select"], "select"].indexOf(this.type) >= 0
+			);
 		},
 	},
 
@@ -231,12 +233,20 @@ export default {
 			const value = (this.max - this.min) * percentage + this.min;
 			this.setValue(Math.round(value));
 		},
-		onKeyPress: function (event, value) {
-			if (!this.muteRanger || this.isDisabled) return;
+		setOption: function (event, type, value) {
+			if (this.mute || this.isDisabled) return;
 
-			if (
-				[13, 32].some((code) => code === (event.keyCode || event.which))
-			) {
+			let changeValue = false;
+			if (type === "click") {
+				changeValue = true;
+			} else if (type === "keypress") {
+				const keycode = event.keyCode || event.which;
+				if ([13, 32].some((code) => code === keycode)) {
+					changeValue = true;
+				}
+			}
+
+			if (changeValue) {
 				this.setValue(value);
 				this.$emit("change", event, this.getValue());
 			}
