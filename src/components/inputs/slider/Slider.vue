@@ -36,6 +36,8 @@
 					}"
 					@mousedown="rangerDown"
 					@mouseup="rangerRelease"
+					@touchstart="rangerDown"
+					@touchend="rangerRelease"
 					@keydown="modifyValue"
 				></div>
 			</div>
@@ -196,7 +198,9 @@ export default {
 
 			if (!this.onHold) {
 				this.onHold = true;
-				document.addEventListener("mousemove", this.dragRangerHandler);
+				["mousemove", "touchmove"].map((e) =>
+					document.addEventListener(e, this.dragRangerHandler)
+				);
 			}
 		},
 		rangerRelease: function (event, force) {
@@ -206,9 +210,8 @@ export default {
 
 			if (this.onHold) {
 				this.onHold = false;
-				document.removeEventListener(
-					"mousemove",
-					this.dragRangerHandler
+				["mousemove", "touchmove"].map((e) =>
+					document.removeEventListener(e, this.dragRangerHandler)
 				);
 
 				if (!force) {
@@ -221,9 +224,17 @@ export default {
 
 			if (!_slider_wrapper) return;
 
+			// prevent default action like swipe up and down
+			e.preventDefault();
+
 			const { left, width } = _slider_wrapper.getBoundingClientRect();
 
-			let percentage = (e.clientX - left) / width;
+			let cursorPositionX = e.clientX;
+			if (e.type.indexOf("touch") >= 0) {
+				cursorPositionX = e.touches[0].clientX;
+			}
+
+			let percentage = (cursorPositionX - left) / width;
 			percentage = Math.round(percentage * 1000) / 1000;
 			percentage =
 				percentage < 0
