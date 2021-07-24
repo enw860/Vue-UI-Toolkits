@@ -13,7 +13,7 @@
 					v-bind:class="[option.isChecked ? 'checked' : '']"
 					@click="(e) => setOption(e, 'click', option.value)"
 					@keypress="(e) => setOption(e, 'keypress', option.value)"
-					v-bind:data-tooltip="option.label"
+					v-bind:data-tooltip="option.label || option.value"
 					v-bind:style="{
 						left: option.left,
 					}"
