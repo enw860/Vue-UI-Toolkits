@@ -1,8 +1,8 @@
-import StopWatch from "./StopWatch.vue";
+import Timer from "./Timer.vue";
 import { pluginFactory } from "../../../utils/plugins";
 
 export default pluginFactory({
     components: [
-        StopWatch
+        Timer
     ]
 })

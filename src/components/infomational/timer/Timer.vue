@@ -50,9 +50,9 @@ const TIMESCALE = [
 const SECOND_IN_MS = 1000;
 
 export default {
-	controlName: "l-stopwatch",
+	controlName: "l-timer",
 
-	name: "Stopwatch",
+	name: "Timer",
 
 	components: {
 		Button,

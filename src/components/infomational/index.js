@@ -8,7 +8,7 @@ import Clock from "./clock";
 import DisplayText from "./displayText";
 import HTMLTextLoader from "./htmlTextLoader";
 import Link from "./link";
-import StopWatch from "./stopwatch";
+import Timer from "./timer";
 import Table from "./table";
 
 export default pluginFactory({
@@ -21,7 +21,7 @@ export default pluginFactory({
         DisplayText,
         HTMLTextLoader,
         Link,
-        StopWatch,
+        Timer,
         Table
     ]
 })
