@@ -2,16 +2,15 @@
 	<div
 		class="Timer VLayout flow-center align-center"
 		v-bind:class="[sizeClass]"
-		v-bind:style="textStyle"
 	>
-		<div>{{ displayTimeObj }}</div>
-		<div v-if="!hideCtls">
+		<div v-bind:style="textStyle">{{ displayTimeObj }}</div>
+		<div class="Timer-controls" v-if="!hideCtls">
 			<Button
 				v-if="timer"
 				value="End"
 				btnStyle="danger"
 				:size="size"
-				@click="terminate"
+				@click="end"
 				:disabled="timer < 0"
 			/>
 			<Button
@@ -85,9 +84,7 @@ export default {
 		alerts: {
 			type: Array,
 			default: () => {
-				return [
-					{ time: { hh: 0, mm: 0, ss: 30 }, message: "30s left!" },
-				];
+				return [];
 			},
 			description: "Alert user when <time> left",
 		},
@@ -177,7 +174,7 @@ export default {
 			}
 
 			if (this.remainingSeconds === 0) {
-				this.terminate();
+				this.end();
 			} else {
 				const alert = this.alertMap[`t_${this.remainingSeconds}`];
 				if (alert) {
@@ -187,12 +184,27 @@ export default {
 		},
 		start: function () {
 			this.timer = setInterval(this.timerHandler, 1 * SECOND_IN_MS);
-			!!this._events.start && this.$emit("start");
+			!!this._events.start && this.$emit("start", "start");
 		},
-		terminate: function () {
+		end: function () {
 			clearInterval(this.timer);
 			this.timer = -1;
-			!!this._events.finish && this.$emit("finish");
+			!!this._events.end && this.$emit("end", "end");
+		},
+		reset: function () {
+			clearInterval(this.timer);
+			this.timer = null;
+			this.remainingSeconds = this.timeObjToSeconds(this.value);
+		},
+	},
+
+	watch: {
+		value: function (newVal, oldVal) {
+			if (JSON.stringify(newVal) !== JSON.stringify(oldVal)) {
+				clearInterval(this.timer);
+				this.timer = null;
+				this.remainingSeconds = this.timeObjToSeconds(newVal);
+			}
 		},
 	},
 
@@ -202,10 +214,10 @@ export default {
 				"Binded action, triggered when desiginated time anchor been triggered.",
 		},
 		"@start": {
-			description: "Binded action, triggered on timer start.",
+			description: "Binded action, triggered on timer started.",
 		},
 		"@end": {
-			description: "Binded action, triggered on timer finish.",
+			description: "Binded action, triggered on timer finished.",
 		},
 	},
 
@@ -213,8 +225,11 @@ export default {
 		start: {
 			description: "Programmatically start the timer.",
 		},
-		terminate: {
-			description: "Programmatically terminate the timer.",
+		end: {
+			description: "Programmatically end the timer.",
+		},
+		reset: {
+			description: "Programmatically reset the timer.",
 		},
 	},
 };
