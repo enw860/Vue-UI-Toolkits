@@ -215,7 +215,7 @@ export default {
 				);
 
 				if (!force) {
-					this.$emit("change", event, this.getValue());
+					this.$emit("change", this.getValue());
 				}
 			}
 		},
@@ -259,7 +259,6 @@ export default {
 
 			if (changeValue) {
 				this.setValue(value);
-				this.$emit("change", event, this.getValue());
 			}
 		},
 		modifyValue: function (event) {
@@ -295,6 +294,7 @@ export default {
 		setValue: function (value) {
 			if (this.isDisabled) return;
 			this.selectedValue = value;
+			this.$emit("change", this.getValue());
 		},
 		getValue: function () {
 			if (this.type === "select") {
