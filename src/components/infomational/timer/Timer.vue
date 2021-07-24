@@ -5,7 +5,7 @@
 	>
 		<div v-bind:style="textStyle">{{ displayTimeObj }}</div>
 		<div class="Timer-controls" v-if="!hideCtls">
-			<Button
+			<l-button
 				v-if="timer"
 				value="End"
 				btnStyle="danger"
@@ -13,7 +13,7 @@
 				@click="end"
 				:disabled="timer < 0"
 			/>
-			<Button
+			<l-button
 				v-else
 				value="Start"
 				btnStyle="primary"
@@ -26,7 +26,6 @@
 
 <script>
 import { normalizeInput } from "../../../utils/utilities";
-import Button from "../button/Button.vue";
 
 const SIZE = {
 	auto: "",
@@ -52,10 +51,6 @@ export default {
 	controlName: "l-timer",
 
 	name: "Timer",
-
-	components: {
-		Button,
-	},
 
 	data: function () {
 		return {
