@@ -35,10 +35,10 @@ export default {
 	},
 
 	props: {
-		maxWidth: {
+		width: {
 			type: String,
 			default: "",
-			description: "Maximum width of each messages.",
+			description: "Width of messages, ecllips shows on text overflow.",
 		},
 		messageStyle: {
 			type: String,
@@ -64,11 +64,11 @@ export default {
 
 	computed: {
 		widthStyle: function () {
-			return this.maxWidth
+			return this.width
 				? {
-						width: this.maxWidth,
-						maxWidth: this.maxWidth,
-						minWidth: this.maxWidth,
+						width: this.width,
+						maxWidth: this.width,
+						minWidth: this.width,
 				  }
 				: {};
 		},
