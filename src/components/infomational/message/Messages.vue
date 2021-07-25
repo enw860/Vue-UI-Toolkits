@@ -83,7 +83,7 @@ export default {
 			this.messages.push({
 				value,
 				messageStyle,
-				timeout,
+				timeout: timeout || this.timeout,
 				id: `msg_${this.id_counter}`,
 			});
 			this.id_counter += 1;
