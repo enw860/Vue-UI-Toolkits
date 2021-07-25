@@ -23,11 +23,14 @@ export const pluginFactory = ({ components, plugins } = {}) => {
  */
 export const registerComponents = (Vue, components = []) => {
     components.forEach(component => {
-        const name = component.controlName || component.name;
-        if (Vue && name && component) {
-            Vue.component(name, component);
-        } else {
-            console.error(`Somthing wrong while registing the component ${component}`);
+        if (component) {
+            const name = component.controlName || component.name;
+
+            if (Vue && name) {
+                Vue.component(name, component);
+            } else {
+                console.error(`Somthing wrong while registing the component ${component}`);
+            }
         }
     })
 }

@@ -27,9 +27,9 @@ const STYLE = {
 };
 
 export default {
-	controlName: "l-messages",
+	controlName: "l-message",
 
-	name: "Messages",
+	name: "Message",
 
 	data: function () {
 		return {};
@@ -37,7 +37,7 @@ export default {
 	props: {
 		value: {
 			type: String,
-			default: "This is a message",
+			default: "This is a piece of message",
 			description: "Content of display.",
 		},
 		size: {
@@ -55,9 +55,6 @@ export default {
 	},
 
 	computed: {
-		describeBy: function () {
-			return this.$parent.labelID || "";
-		},
 		sizeClass: function () {
 			return normalizeInput(SIZE, this.size);
 		},

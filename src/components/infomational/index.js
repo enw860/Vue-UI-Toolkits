@@ -8,7 +8,7 @@ import Clock from "./clock";
 import DisplayText from "./displayText";
 import HTMLTextLoader from "./htmlTextLoader";
 import Link from "./link";
-import Messages from "./messages";
+import Message from "./message";
 import Timer from "./timer";
 import Table from "./table";
 
@@ -22,7 +22,7 @@ export default pluginFactory({
         DisplayText,
         HTMLTextLoader,
         Link,
-        Messages,
+        Message,
         Timer,
         Table
     ]
