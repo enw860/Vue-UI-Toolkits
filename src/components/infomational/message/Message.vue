@@ -1,21 +1,14 @@
 <template>
-	<div>This is a message</div>
+	<div
+		class="Message HLayout align-canter"
+		v-bind:class="[styleClass, hide ? 'hide-msg' : '']"
+	>
+		<span>{{ value }}</span>
+	</div>
 </template>
 
 <script>
 import { normalizeInput } from "../../../utils/utilities";
-
-const SIZE = {
-	auto: "",
-	xsmall: "size-xsmall",
-	small: "size-small",
-	default: "size-normal",
-	normal: "size-normal",
-	large: "size-large",
-	xlarge: "size-xlarge",
-	xxlarge: "size-xxlarge",
-	xxxlarge: "size-xxxlarge",
-};
 
 const STYLE = {
 	primary: "msg-primary",
@@ -32,19 +25,19 @@ export default {
 	name: "Message",
 
 	data: function () {
-		return {};
+		return {
+			hide: true,
+			timer: null,
+			timerAnimation: null,
+			animationTime: 200,
+		};
 	},
+
 	props: {
 		value: {
 			type: String,
 			default: "This is a piece of message",
 			description: "Content of display.",
-		},
-		size: {
-			type: String,
-			default: "default",
-			description: "Size of the text.",
-			options: Object.keys(SIZE),
 		},
 		messageStyle: {
 			type: String,
@@ -52,21 +45,70 @@ export default {
 			description: "Color theme of the message tile.",
 			options: Object.keys(STYLE),
 		},
+		timeout: {
+			type: Number,
+			default: NaN,
+			description:
+				"Dissmiss the message after N ms, NaN for perminate messages",
+		},
 	},
 
 	computed: {
-		sizeClass: function () {
-			return normalizeInput(SIZE, this.size);
-		},
 		styleClass: function () {
 			return normalizeInput(STYLE, this.messageStyle);
 		},
 	},
 
-	methods: {},
+	methods: {
+		dismiss: function () {
+			this.hide = true;
+		},
+	},
+
+	watch: {
+		hide: function (newVal, oldVal) {
+			// when the message being hide
+			if (newVal !== oldVal && newVal) {
+				this.timerAnimation = setTimeout(() => {
+					// trigger the external onDismiss event when the animation is done
+					this.$emit("onDismiss", this);
+				}, this.animationTime);
+			}
+		},
+	},
+
+	mounted: function () {
+		// delay for 100ms for playing the init animation
+		setTimeout(() => {
+			if (this.timeout) {
+				this.timer = setTimeout(() => {
+					this.dismiss();
+				}, this.timeout + this.animationTime);
+			}
+
+			this.hide = false;
+		}, 100);
+	},
+
+	beforeDestroy() {
+		// clear all timers
+		if (this.timerAnimation) {
+			clearTimeout(this.timerAnimation);
+			this.timerAnimation = null;
+		}
+
+		if (this.timer) {
+			clearTimeout(this.timer);
+			this.timer = null;
+		}
+	},
 
 	expose_events: {},
 
-	expose_methods: {},
+	expose_methods: {
+		dismiss: {
+			description: "Programmatically dismiss the message",
+		},
+	},
 };
 </script>

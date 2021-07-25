@@ -1,8 +1,8 @@
-import Message from "./Message.vue";
+import Messages from "./Messages.vue";
 import { pluginFactory } from "../../../utils/plugins";
 
 export default pluginFactory({
     components: [
-        Message
+        Messages
     ]
 })

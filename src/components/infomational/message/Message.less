@@ -1,0 +1,54 @@
+.Messages {
+    .Message:not(:last-child) {
+        margin-bottom: @spacing-05;
+    }
+}
+
+.Message {
+    width: 100%;
+    overflow: hidden;
+
+    border-left: @spacing-02 solid transparent;
+    background-color: transparent;
+    color: @black;
+
+    box-shadow: 2px 2px 5px 0px @grey-050;
+    transition: transform 200ms cubic-bezier(0.2, 0, 0.38, 0.9);
+    transform-origin: top;
+
+    transform: scaleY(1);
+
+    &.hide-msg {
+        transform: scaleY(0);
+    }
+
+    & > span {
+        padding: 0.75em @spacing-05;
+    }
+
+    &.msg-primary {
+        .msg-theme(@primary-040, @primary-020);
+    }
+
+	&.msg-success {
+        .msg-theme(@success-040, @success-020);
+    }
+
+    &.msg-info {
+        .msg-theme(@info-040, @info-010);
+    }
+
+    &.msg-danger {
+        .msg-theme(@danger-050, @danger-020);
+    }
+
+    &.msg-dark {
+        .msg-theme(@primary-060, @grey-090);
+        color: @white;
+    }
+}
+
+.msg-theme(@border-color, @bg-color) {
+    border-left-color: @border-color;
+    background-color: @bg-color;
+}
