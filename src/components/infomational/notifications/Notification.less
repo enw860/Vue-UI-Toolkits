@@ -1,0 +1,82 @@
+.Notifications {
+    .Notification:not(:last-child) {
+        margin-bottom: @spacing-05;
+    }
+}
+
+.Notification {
+    position: relative;
+
+    width: 100%;
+    overflow: hidden;
+
+    border-left: @spacing-02 solid transparent;
+    background-color: transparent;
+    color: @black;
+    fill: @black;
+
+    padding: @spacing-04 @spacing-07 @spacing-06 0;
+
+    box-shadow: 2px 2px 5px 0px @grey-050;
+    // transition: height 200ms cubic-bezier(0.2, 0, 0.38, 0.9);
+
+    // height: 2.5em;
+
+    // &.hide-msg {
+    //     height: 0;
+    // }
+
+    .Notification-icon {
+        margin-left: @spacing-04;
+        &.default-icon {
+            margin-top: -0.1em;
+        }
+    }
+
+    .Notification-body {
+        width: 100%;
+
+        margin-left: @spacing-04;
+
+        > * {
+            margin: 0;
+        }
+
+        > *:first-child {
+            margin-bottom: @spacing-04;
+        }
+    }
+
+    .Notification-ctl {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &.noti-primary {
+        .noti-theme(@primary-040, @primary-020);
+    }
+
+	&.noti-success {
+        .noti-theme(@success-040, @success-020);
+    }
+
+    &.noti-info {
+        .noti-theme(@info-040, @info-010);
+    }
+
+    &.noti-danger {
+        .noti-theme(@danger-050, @danger-020);
+    }
+
+    &.noti-dark {
+        .noti-theme(@primary-060, @grey-090);
+        color: @white;
+        fill: @white;
+    }
+}
+
+.noti-theme(@border-color, @bg-color) {
+    border-left-color: @border-color;
+    background-color: @bg-color;
+}
