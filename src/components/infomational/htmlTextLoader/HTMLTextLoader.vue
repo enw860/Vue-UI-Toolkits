@@ -588,10 +588,18 @@ export default {
 
 	watch: {
 		value: function (newVal, oldVal) {
-			newVal && this.updateParseTree();
+			if (newVal) {
+				this.updateParseTree();
+			} else {
+				this.emitError("ERROR: invalid html content");
+			}
 		},
 		wrapOffset: function (newVal, oldVal) {
-			newVal && this.updateParseTree();
+			if (newVal) {
+				this.updateParseTree();
+			} else {
+				this.emitError("ERROR: invalid wrapOffset");
+			}
 		},
 	},
 

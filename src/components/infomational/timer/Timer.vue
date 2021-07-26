@@ -178,8 +178,12 @@ export default {
 			}
 		},
 		start: function () {
-			this.timer = setInterval(this.timerHandler, 1 * SECOND_IN_MS);
 			!!this._events.start && this.$emit("start", "start");
+			if (this.remainingSeconds > 0) {
+				this.timer = setInterval(this.timerHandler, 1 * SECOND_IN_MS);
+			} else {
+				this.end();
+			}
 		},
 		end: function () {
 			clearInterval(this.timer);

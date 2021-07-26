@@ -4,9 +4,11 @@
 		v-bind:class="[sizeClass, isDisabled]"
 		:aria-describedby="describeBy"
 		v-bind:style="textStyle"
+		v-if="value"
 	>
 		{{ value }}
 	</div>
+	<l-sk v-else :textSize="size" width="50%" />
 </template>
 
 <script>
