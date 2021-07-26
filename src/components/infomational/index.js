@@ -11,6 +11,7 @@ import Link from "./link";
 import Message from "./message";
 import Timer from "./timer";
 import Table from "./table";
+import Seleton from "./skeleton";
 
 export default pluginFactory({
     plugins: [
@@ -24,6 +25,7 @@ export default pluginFactory({
         Link,
         Message,
         Timer,
-        Table
+        Table,
+        Seleton
     ]
 })
