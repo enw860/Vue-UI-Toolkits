@@ -55,7 +55,7 @@ export default {
 		},
 		color: {
 			type: String,
-			default: "#000000",
+			default: "#0f62fe",
 			description: "Font color of the text.",
 		},
 		openInNewTab: {
