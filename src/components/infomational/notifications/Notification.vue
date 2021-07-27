@@ -4,9 +4,9 @@
 		v-bind:class="[styleClass, hide ? 'hide-msg' : '']"
 	>
 		<div v-if="!this.$slots['icon']" class="Notification-icon default-icon">
-			<span v-bind:class="['fa', icon]" />
+			<span v-bind:class="['fa', defaultIcon]" />
 		</div>
-		<slot class="Notification-icon" name="Inputs"></slot>
+		<slot class="Notification-icon" name="customeIcon"></slot>
 
 		<div class="Notification-body VLayout">
 			<l-text class="" :value="title" :fontWeight="600" />
@@ -46,16 +46,11 @@ export default {
 			hide: true,
 			timer: null,
 			timerAnimation: null,
-			animationTime: 200,
+			animationTime: 500,
 		};
 	},
 
 	props: {
-		icon: {
-			type: String,
-			default: "fa-info-circle",
-			description: "Icon for your notification",
-		},
 		title: {
 			type: String,
 			default: "Title for your notification",
@@ -66,6 +61,7 @@ export default {
 			default: "This is the content of the notification message",
 			description: "Content of display.",
 		},
+
 		notificationStyle: {
 			type: String,
 			default: "default",
@@ -81,6 +77,20 @@ export default {
 	},
 
 	computed: {
+		defaultIcon: function () {
+			switch (this.styleClass) {
+				case "noti-success":
+					return "fa-check-circle";
+				case "noti-danger":
+					return "fa-exclamation-triangle";
+				case "noti-info":
+					return "fa-info-circle";
+				case "noti-primary":
+				case "noti-dark":
+				default:
+					return "fa-bell";
+			}
+		},
 		styleClass: function () {
 			return normalizeInput(STYLE, this.notificationStyle);
 		},

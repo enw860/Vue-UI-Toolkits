@@ -70,7 +70,6 @@ export default {
 				? {
 						width: this.width,
 						maxWidth: this.width,
-						minWidth: this.width,
 				  }
 				: {};
 		},
@@ -82,6 +81,7 @@ export default {
 			content,
 			notificationStyle = this.notificationStyle,
 			timeout = this.timeout,
+			enableClose,
 		}) {
 			this.notifications.push({
 				title,

@@ -29,7 +29,7 @@ export default {
 			hide: true,
 			timer: null,
 			timerAnimation: null,
-			animationTime: 200,
+			animationTime: 400,
 		};
 	},
 
