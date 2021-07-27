@@ -6,6 +6,7 @@
 			:key="noti.id"
 			:data-key="noti.id"
 			:title="noti.title"
+			:action="noti.action"
 			:content="noti.content"
 			:notificationStyle="noti.notificationStyle"
 			:timeout="noti.timeout"
@@ -79,13 +80,14 @@ export default {
 		post: function ({
 			title,
 			content,
+			action,
 			notificationStyle = this.notificationStyle,
 			timeout = this.timeout,
-			enableClose,
 		}) {
 			this.notifications.push({
 				title,
 				content,
+				action,
 				notificationStyle,
 				timeout: timeout || this.timeout,
 				id: `noti_${this.id_counter}`,
@@ -123,7 +125,8 @@ export default {
 
 	expose_methods: {
 		"post(<notification>)": {
-			description: "<notification>: .",
+			description:
+				"Post a notification block. <notification>: {title, content, <action>, notificationStyle,timeout}. <action>: {displayName, callback}",
 		},
 		clearAll: {
 			description: "Remove all notifications from the stack.",

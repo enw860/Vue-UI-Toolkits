@@ -16,15 +16,16 @@
     color: @black;
     fill: @black;
 
+    box-shadow: 2px 2px 5px 0px @grey-050;
+    
+    max-height: 20em;
     padding: @spacing-04 @spacing-07 @spacing-06 0;
 
-    box-shadow: 2px 2px 5px 0px @grey-050;
-    transition: max-height 500ms cubic-bezier(0.2, 0, 0.38, 0.9);
-
-    max-height: 20em;
+    .trans-height(400ms, cubic-bezier(0.2, 0, 0.38, 0.9));
 
     &.hide-msg {
         max-height: 0;
+        padding: 0;
     }
 
     .Notification-icon {
@@ -34,8 +35,8 @@
         }
     }
 
-    .Notification-body {
-        width: 100%;
+    .Notification-main {
+        width: calc(100% - 34px);
 
         margin-left: @spacing-04;
 
@@ -43,8 +44,28 @@
             margin: 0;
         }
 
-        > *:first-child {
-            margin-bottom: @spacing-03;
+        > :not(:last-child) {
+            margin-bottom: @spacing-04;
+        }
+
+        .Notification-title {
+            max-height: 3em;
+            overflow-y: auto;
+        }
+
+        .Notification-body {
+            overflow-y: auto;
+            max-height: 15em;
+
+            >:not(:last-child){
+                margin-bottom: @spacing-02;
+            }
+        }
+
+        .Notification-action {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
 
@@ -87,4 +108,10 @@
     .default-icon {
         color: @icon-color;
     }
+}
+
+.trans-height(@ani-window, @trans-fun) {
+    transition: all @ani-window @trans-fun;
+    -webkit-transition: all @ani-window @trans-fun;
+	-moz-transition: all @ani-window @trans-fun;
 }

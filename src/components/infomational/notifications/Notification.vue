@@ -8,9 +8,30 @@
 		</div>
 		<slot class="Notification-icon" name="customeIcon"></slot>
 
-		<div class="Notification-body VLayout">
-			<l-text class="" :value="title" :fontWeight="600" />
-			<l-text class="" :value="content" />
+		<div class="Notification-main VLayout">
+			<l-text
+				class="Notification-title"
+				:value="title"
+				:fontWeight="600"
+			/>
+
+			<l-text class="Notification-body" :value="content" v-if="content" />
+			<div class="Notification-body" v-else>
+				<l-sk width="90%" />
+				<l-sk width="60%" />
+				<l-sk width="85%" />
+			</div>
+
+			<div
+				v-if="!!action && action.displayName"
+				class="Notification-action"
+			>
+				<l-link
+					:openInNewTab="false"
+					:value="action.displayName"
+					@click="linkAction"
+				/>
+			</div>
 		</div>
 
 		<div class="Notification-ctl">
@@ -46,7 +67,7 @@ export default {
 			hide: true,
 			timer: null,
 			timerAnimation: null,
-			animationTime: 500,
+			animationTime: 400,
 		};
 	},
 
@@ -61,7 +82,12 @@ export default {
 			default: "This is the content of the notification message",
 			description: "Content of display.",
 		},
-
+		action: {
+			type: Object,
+			default: null,
+			description:
+				"{displayName, callback} The action link showing at the bottom.",
+		},
 		notificationStyle: {
 			type: String,
 			default: "default",
@@ -99,6 +125,12 @@ export default {
 	methods: {
 		dismiss: function () {
 			this.hide = true;
+		},
+		linkAction: function (event) {
+			if (this.action && this.action.displayName) {
+				const func = this.action.callback || this.dismiss;
+				func(event);
+			}
 		},
 	},
 
