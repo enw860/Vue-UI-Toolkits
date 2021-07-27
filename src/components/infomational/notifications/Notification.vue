@@ -12,7 +12,7 @@
 			<l-text
 				class="Notification-title"
 				:value="title"
-				:fontWeight="600"
+				:fontWeight="500"
 			/>
 
 			<l-text class="Notification-body" :value="content" v-if="content" />
