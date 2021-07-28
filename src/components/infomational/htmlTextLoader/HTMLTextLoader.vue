@@ -299,11 +299,6 @@ export default {
 				this.emitError(e);
 			}
 		},
-		indentation: function (level) {
-			return Array(level || 0)
-				.fill("\t")
-				.join("");
-		},
 		plotParseTree: function (parseTree) {
 			// clean previous plots
 			const loader = this.$refs.loader;
@@ -390,7 +385,7 @@ export default {
 		},
 		assignACodeLine: function (level) {
 			const lineSpan = this.createTextElement(
-				"pre",
+				"div",
 				null,
 				"Line",
 				this.$refs.loader
@@ -412,12 +407,11 @@ export default {
 				lineSpan
 			);
 
-			this.createTextElement(
-				"span",
-				this.indentation(level),
-				null,
-				codeSpan
-			);
+			Array(level || 0)
+				.fill(0)
+				.forEach(() => {
+					this.createTextElement("span", null, "Tab", codeSpan);
+				});
 
 			return codeSpan;
 		},
@@ -546,7 +540,7 @@ export default {
 		},
 		togglesLines: function (show, startLine, endLine) {
 			const loader = this.$refs.loader;
-			const lines = loader.querySelectorAll("pre.Line");
+			const lines = loader.querySelectorAll(".Line");
 			lines.forEach((line, index) => {
 				if (index >= startLine && index <= endLine - 2) {
 					if (show) {
@@ -566,7 +560,7 @@ export default {
 		},
 		adjustContentWidth: function () {
 			const loader = this.$refs.loader;
-			const lines = loader.querySelectorAll("pre.Line > .Line-Code");
+			const lines = loader.querySelectorAll(".Line > .Line-Code");
 
 			let baseWidth = this.$refs.loader.getBoundingClientRect().width;
 			lines.forEach((line, index) => {

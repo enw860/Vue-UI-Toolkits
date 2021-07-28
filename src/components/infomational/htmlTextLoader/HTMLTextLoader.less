@@ -6,7 +6,7 @@
 
 .HTMLTextHeaderWrapper, .HTMLTextFooterWrapper {
 	padding: @spacing-02 @spacing-03;
-	border-left: 30px solid @grey-080;
+	border-left: 32px solid @grey-080;
 	min-height: @spacing-04;
 
 	position: sticky;
@@ -22,19 +22,15 @@
 
 .HTMLTextLoader {
 	color: @white;
-
 	.Line {
+		font-size: @font-size-rg;
+		
+		white-space: nowrap;
 		line-height: @font-size-xxl;
 		display: flex;
 		flex-direction: row;
 		margin: 0;
 		color: @grey-030;
-
-		span, em, pre > {
-			line-height: @font-size-xxl;
-			font-size: @font-size-rg;
-		}
-
 		&:hover {
 			background-color: @grey-070;
 		}
@@ -83,6 +79,12 @@
 		}
 
 		.Line-Code {
+			.Tab {
+				display: inline-block;
+				width: 2ch;
+				height: 1em;
+			}
+
 			.HTMLTag {
 				font-style: normal;
 				color: @primary-050;
