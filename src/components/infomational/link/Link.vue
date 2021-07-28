@@ -7,8 +7,10 @@
 		:target="openInNewTab ? '_blank' : '_self'"
 		:href="hrefSource"
 		@click="onclick"
+		v-if="value"
 		>{{ value }}</a
 	>
+	<l-sk v-else :textSize="size" width="50%" />
 </template>
 
 <script>
@@ -53,7 +55,7 @@ export default {
 		},
 		color: {
 			type: String,
-			default: "#000000",
+			default: "#0f62fe",
 			description: "Font color of the text.",
 		},
 		openInNewTab: {

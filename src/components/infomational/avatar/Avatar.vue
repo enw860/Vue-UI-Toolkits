@@ -13,7 +13,7 @@
 			<img v-if="avatarContentType === 'image'" v-bind:src="content" />
 			<i
 				v-else-if="avatarContentType === 'icon'"
-				v-bind:class="content"
+				v-bind:class="['fa', content]"
 				v-bind:style="avatarIconColor"
 			></i>
 			<div v-else v-bind:style="avatarIconColor">{{ avatarContent }}</div>

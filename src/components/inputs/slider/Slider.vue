@@ -13,7 +13,7 @@
 					v-bind:class="[option.isChecked ? 'checked' : '']"
 					@click="(e) => setOption(e, 'click', option.value)"
 					@keypress="(e) => setOption(e, 'keypress', option.value)"
-					v-bind:data-tooltip="option.label"
+					v-bind:data-tooltip="option.label || option.value"
 					v-bind:style="{
 						left: option.left,
 					}"
@@ -36,6 +36,8 @@
 					}"
 					@mousedown="rangerDown"
 					@mouseup="rangerRelease"
+					@touchstart="rangerDown"
+					@touchend="rangerRelease"
 					@keydown="modifyValue"
 				></div>
 			</div>
@@ -196,7 +198,9 @@ export default {
 
 			if (!this.onHold) {
 				this.onHold = true;
-				document.addEventListener("mousemove", this.dragRangerHandler);
+				["mousemove", "touchmove"].map((e) =>
+					document.addEventListener(e, this.dragRangerHandler)
+				);
 			}
 		},
 		rangerRelease: function (event, force) {
@@ -206,13 +210,12 @@ export default {
 
 			if (this.onHold) {
 				this.onHold = false;
-				document.removeEventListener(
-					"mousemove",
-					this.dragRangerHandler
+				["mousemove", "touchmove"].map((e) =>
+					document.removeEventListener(e, this.dragRangerHandler)
 				);
 
 				if (!force) {
-					this.$emit("change", event, this.getValue());
+					this.$emit("change", this.getValue());
 				}
 			}
 		},
@@ -221,9 +224,17 @@ export default {
 
 			if (!_slider_wrapper) return;
 
+			// prevent default action like swipe up and down
+			e.preventDefault();
+
 			const { left, width } = _slider_wrapper.getBoundingClientRect();
 
-			let percentage = (e.clientX - left) / width;
+			let cursorPositionX = e.clientX;
+			if (e.type.indexOf("touch") >= 0) {
+				cursorPositionX = e.touches[0].clientX;
+			}
+
+			let percentage = (cursorPositionX - left) / width;
 			percentage = Math.round(percentage * 1000) / 1000;
 			percentage =
 				percentage < 0
@@ -248,7 +259,6 @@ export default {
 
 			if (changeValue) {
 				this.setValue(value);
-				this.$emit("change", event, this.getValue());
 			}
 		},
 		modifyValue: function (event) {
@@ -284,6 +294,7 @@ export default {
 		setValue: function (value) {
 			if (this.isDisabled) return;
 			this.selectedValue = value;
+			this.$emit("change", this.getValue());
 		},
 		getValue: function () {
 			if (this.type === "select") {

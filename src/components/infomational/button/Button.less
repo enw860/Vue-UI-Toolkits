@@ -73,6 +73,11 @@
 
 	&.btn-transparent {
 		.setBtnStyle(transparent, transparent, transparent, @grey-100, @grey-100);
+
+		&[role="button"]:hover {
+			outline: 2px solid @primary-060;
+			outline-offset: -2px;
+		}
 	}
 }
 

@@ -8,7 +8,11 @@ import Clock from "./clock";
 import DisplayText from "./displayText";
 import HTMLTextLoader from "./htmlTextLoader";
 import Link from "./link";
+import Messages from "./message";
+import Notifications from "./notifications";
+import Timer from "./timer";
 import Table from "./table";
+import Seleton from "./skeleton";
 
 export default pluginFactory({
     plugins: [
@@ -20,6 +24,10 @@ export default pluginFactory({
         DisplayText,
         HTMLTextLoader,
         Link,
+        Messages,
+        Notifications,
+        Timer,
         Table,
+        Seleton
     ]
 })

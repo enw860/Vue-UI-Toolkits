@@ -4,9 +4,11 @@
 		v-bind:class="[sizeClass, isDisabled]"
 		:aria-describedby="describeBy"
 		v-bind:style="textStyle"
+		v-if="value"
 	>
 		{{ value }}
 	</div>
+	<l-sk v-else :textSize="size" width="50%" />
 </template>
 
 <script>
@@ -52,7 +54,7 @@ export default {
 		},
 		color: {
 			type: String,
-			default: "#000000",
+			default: "",
 			description: "Font color of the text.",
 		},
 	},
@@ -68,10 +70,17 @@ export default {
 			return this.$parent.isDisabled || this.disabled;
 		},
 		textStyle: function () {
-			return {
-				fontWeight: this.fontWeight,
-				color: this.color,
-			};
+			const style = {};
+
+			if (this.fontWeight) {
+				style.fontWeight = this.fontWeight;
+			}
+
+			if (this.color) {
+				style.color = this.color;
+			}
+
+			return style;
 		},
 	},
 };

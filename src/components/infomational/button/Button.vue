@@ -8,6 +8,7 @@
 		:aria-describedby="labelID"
 		@click="onclick"
 		@keypress="onkeypress"
+		v-if="value || icon"
 	>
 		<a
 			v-if="!!icon && iconPositionNorm === 'left'"
@@ -23,6 +24,7 @@
 			v-bind:class="icon"
 		></a>
 	</div>
+	<l-sk v-else width="75px" height="30px" />
 </template>
 
 <script>
