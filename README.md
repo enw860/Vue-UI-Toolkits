@@ -76,6 +76,15 @@ export default {
 
 ### Informational
 
+*[l-messages](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/message/Messages.vue)
+
+*[l-notifications](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/notifications/Notifications.vue)
+
+*[l-timer](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/timer/Timer.vue)
+
+*[l-skeleton](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/skeleton/Skeleton.vue)
+
+
 [l-avatar](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/avatar/Avatar.vue)
 
 [l-badge](https://github.com/enw860/sharkquila_ui_toolkit/blob/main/src/components/infomational/badge/Badge.vue)
