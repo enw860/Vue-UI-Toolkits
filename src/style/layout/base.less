@@ -10,7 +10,8 @@
 
 body {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   color: @font-black;
 
   padding: 0;
@@ -22,9 +23,16 @@ body {
 body *:before, body *:after {
   font-family: FontAwesome;
   box-sizing: border-box;
+}
 
-  width: 100%;
-  height: 100%;
+body .fa:before, body .fa:after {
+  min-width: 1em;
+  min-height: 1em;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // hide default arrow for input number

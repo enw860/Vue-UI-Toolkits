@@ -1,0 +1,119 @@
+.Notifications {
+    min-width: 200px;
+    .Notification:not(:last-child) {
+        margin-bottom: @spacing-05;
+    }
+}
+
+.Notification {
+    position: relative;
+
+    width: 100%;
+    overflow: hidden;
+
+    border-left: @spacing-02 solid transparent;
+    background-color: transparent;
+    color: @black;
+    fill: @black;
+
+    box-shadow: 2px 2px 5px 0px @grey-050;
+    
+    max-height: 20em;
+    padding: @spacing-04 @spacing-07 @spacing-06 0;
+
+    .trans-height(400ms, cubic-bezier(0.2, 0, 0.38, 0.9));
+
+    &.hide-msg {
+        max-height: 0;
+        padding: 0;
+    }
+
+    .Notification-icon {
+        margin-left: @spacing-04;
+        &.default-icon {
+            margin-top: -0.1em;
+        }
+    }
+
+    .Notification-main {
+        width: calc(100% - 34px);
+
+        margin-left: @spacing-04;
+
+        > * {
+            margin: 0;
+        }
+
+        > :not(:last-child) {
+            margin-bottom: @spacing-03;
+        }
+
+        .Notification-title {
+            max-height: 3em;
+            overflow-y: auto;
+            line-height: 1.5em;
+        }
+
+        .Notification-body {
+            overflow-y: auto;
+            max-height: 15em;
+            line-height: 1.25;
+
+            >:not(:last-child){
+                margin-bottom: @spacing-01;
+            }
+        }
+
+        .Notification-action {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
+    .Notification-ctl {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &.noti-primary {
+        .noti-theme(@primary-060, @primary-030, @primary-010);
+    }
+
+	&.noti-success {
+        .noti-theme(@success-060, @success-030, @success-010);
+    }
+
+    &.noti-info {
+        .noti-theme(@info-060, @info-030, @info-010);
+    }
+
+    &.noti-danger {
+        .noti-theme(@danger-060, @danger-030, @danger-010);
+    }
+
+    &.noti-dark {
+        .noti-theme(@primary-030, @primary-060, @grey-090);
+
+        &, .Notification-ctl .Button {
+            color: @white;
+            fill: @white;
+        }
+    }
+}
+
+.noti-theme(@icon-color, @border-color, @bg-color) {
+    border-left-color: @border-color;
+    background-color: @bg-color;
+
+    .default-icon {
+        color: @icon-color;
+    }
+}
+
+.trans-height(@ani-window, @trans-fun) {
+    transition: all @ani-window @trans-fun;
+    -webkit-transition: all @ani-window @trans-fun;
+	-moz-transition: all @ani-window @trans-fun;
+}

@@ -13,6 +13,12 @@
         }
     }
 
+    .Slider-track, .Slider-node {
+        background-color: @grey-020;
+        box-shadow: 1px 1px 2px 0px @grey-030;
+        
+    }
+
     &.slider-primary .Slider-value,
     &.slider-primary .Slider-thumb[tabindex="0"]:focus,
     &.slider-primary .Slider-node.checked,
@@ -85,7 +91,6 @@
         .Slider-node {
             z-index: 2;
             border-radius: 100%;
-            background-color: @white;
             position: absolute;
             transform: translateX(-50%);
             .appendTooltip();
@@ -95,6 +100,8 @@
 
 // mixin functions
 .setTrackerSize(@tracker-height) {
+    height: 2 * @tracker-height;
+
     padding-left: @tracker-height;
     padding-right: @tracker-height;
 
@@ -104,7 +111,6 @@
 
     .Slider-track {
         width: calc(~"100%" - 2 * @tracker-height);
-        background-color: @white;
         height: @tracker-height;
         top: 0.5 * @tracker-height;
     }

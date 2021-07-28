@@ -1,12 +1,12 @@
-import Button from "./Button.vue";
-import Skeleton from "../skeleton";
+import Timer from "./Timer.vue";
 import { pluginFactory } from "../../../utils/plugins";
+import ButtonPlugin from "../../infomational/button";
 
 export default pluginFactory({
     components: [
-        Button
+        Timer
     ],
     plugins: [
-        Skeleton
+        ButtonPlugin
     ]
 })
